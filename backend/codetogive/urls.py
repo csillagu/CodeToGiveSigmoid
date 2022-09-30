@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from .model.chair_lamp import ChairLamp
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('chairlamp/', ChairLamp.as_view()),
 ]
