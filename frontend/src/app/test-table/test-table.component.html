@@ -1,9 +1,9 @@
 <button (click)="onClick()"></button>
 <div *ngIf="matrix_loaded">
 <table>
-  <tr *ngFor="let ma of matrix">
-    <td *ngFor="let m of ma">
-      <img src="/assets/img/{{m}}.png" height="117" width="102"/></td>
+  <tr *ngFor="let ma of matrix; let maindex=index">
+    <td *ngFor="let m of ma; let mindex=index">
+      <img src="/assets/img/{{m}}.png" height="117" width="102" (click)="onImageClick(mindex, maindex)"/></td>
   </tr>
 </table>
 </div>
