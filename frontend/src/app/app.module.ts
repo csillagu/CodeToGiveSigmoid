@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TmpButtonComponent } from './tmp-button/tmp-button.component';
 import {HttpClientModule} from "@angular/common/http";
+import { TestTableComponent } from './test-table/test-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TmpButtonComponent
+    TmpButtonComponent,
+    TestTableComponent,
   ],
   imports: [
     BrowserModule,
