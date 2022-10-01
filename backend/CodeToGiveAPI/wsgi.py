@@ -1,5 +1,5 @@
 """
-WSGI config for codetogive project.
+WSGI config for CodeToGiveAPI project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'codetogive.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CodeToGiveAPI.settings')
 
 application = get_wsgi_application()
