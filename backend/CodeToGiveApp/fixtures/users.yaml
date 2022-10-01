@@ -1,0 +1,15 @@
+- model: CodeToGiveApp.User
+  pk: b388f8f2d66022828a5c0b48c17696cd
+  fields:
+    UserName: Andris
+    ChairLampResult: None
+- model: CodeToGiveApp.User
+  pk: 5b095202389947e51b1cc651c5106ace
+  fields:
+    UserName: Zsombi
+    ChairLampResult: None
+- model: CodeToGiveApp.User
+  pk: bfe07c76562eb1fccb970ed3b30800d5
+  fields:
+    UserName: Marci
+    ChairLampResult: None
