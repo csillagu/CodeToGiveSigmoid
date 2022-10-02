@@ -1,3 +1,5 @@
 .idea/
-venv/
-backend/.idea/
+/venv/
+/backend/.idea/
+.vscode/
+__pychache__/
