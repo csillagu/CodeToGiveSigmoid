@@ -1,7 +1,7 @@
 <div *ngIf="errorText">
   <h1>{{errorText}}</h1>
 </div>
-<div *ngIf="!test_finished">
+<div *ngIf="!test_finished||errorText">
   <div>{{timerDisplay}}</div>
   <div *ngIf="!matrix_loaded">
     <button (click)="onLoadClick()">Load Image</button>

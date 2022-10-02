@@ -39,13 +39,13 @@ export class TestTableComponent implements OnInit {
       })
   }
   submit(){
+    this.matrix_loaded = false
     this.results.push(this.results_row)
     this.timer?.unsubscribe()
     this.http.post<string>('http://127.0.0.1:8000/chairlamp/bfe07c76562eb1fccb970ed3b30800d5',
       {circled: this.results, finished_at:this.time}, {observe:"response"}).subscribe((data)=>{
       console.log(data.status)
       if(data.status==200) {
-        this.matrix_loaded = false
         this.test_finished = true
         console.log(this.results)
       }else{
@@ -62,10 +62,8 @@ export class TestTableComponent implements OnInit {
       this.matrix[row][col]=1
       console.log(this.results)
     }
-
   }
   constructor(private http : HttpClient) {
-
   }
 
   getDisplayTimer(time: number) {
