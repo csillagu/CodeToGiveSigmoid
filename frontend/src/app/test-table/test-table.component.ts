@@ -21,8 +21,7 @@ export class TestTableComponent implements OnInit {
   offlineUrl = 'assets/matrix.json';
   onLoadClick(){
     let res=this.http.get<Config>('https://fce2672e-71fe-4350-a614-e46da6dd5f7f.mock.pstmn.io/test1',
-      { responseType: 'json',headers:{ ["w"]:this.w.toString(), ["h"]: this.h.toString(),
-          ["num"]:this.num.toString()}})
+      { responseType: 'json',headers:{["num"]:this.num.toString()}})
       .subscribe( (data : Config) => {
         this.matrix = data.matrix
         this.matrix_zeros = data.matrix.map(x =>  x.map(a=>a))
@@ -37,7 +36,7 @@ export class TestTableComponent implements OnInit {
   }
   submit(){
     this.http.post<string>('https://ae3856c0-dba0-4dfd-b3e9-54de87080e82.mock.pstmn.io/test1_submit',
-      { original:this.matrix_given,clicked: this.matrix_zeros}).subscribe((data)=>{
+      {clicked: this.matrix_zeros}).subscribe((data)=>{
         console.log(data)
     })
   }
