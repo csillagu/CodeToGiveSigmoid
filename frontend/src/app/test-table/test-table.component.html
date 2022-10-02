@@ -5,7 +5,7 @@
 <table>
   <tr *ngFor="let ma of matrix; let maindex=index">
     <td *ngFor="let m of ma; let mindex=index">
-      <img src="/assets/img/{{m}}.png" height="117" width="102" (click)="onImageClick(mindex, maindex)"/></td>
+      <img src="/assets/symbols/{{m}}.svg" height="117" width="102" (click)="onImageClick(mindex, maindex)"/></td>
   </tr>
 </table>
   <button (click)="submit()">Submit</button>
