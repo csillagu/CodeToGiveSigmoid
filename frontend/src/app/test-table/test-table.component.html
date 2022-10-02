@@ -1,4 +1,6 @@
-<button (click)="onClick()"></button>
+<div *ngIf="!matrix_loaded">
+  <button (click)="onLoadClick()" [slot]="matrix_loaded">Load Image</button>
+</div>
 <div *ngIf="matrix_loaded">
 <table>
   <tr *ngFor="let ma of matrix; let maindex=index">
@@ -6,4 +8,5 @@
       <img src="/assets/img/{{m}}.png" height="117" width="102" (click)="onImageClick(mindex, maindex)"/></td>
   </tr>
 </table>
+  <button (click)="submit()">Submit</button>
 </div>
