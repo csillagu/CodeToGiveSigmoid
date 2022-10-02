@@ -1,5 +1,6 @@
+<div>{{timerDisplay}}</div>
 <div *ngIf="!matrix_loaded">
-  <button (click)="onLoadClick()" [slot]="matrix_loaded">Load Image</button>
+  <button (click)="onLoadClick()">Load Image</button>
 </div>
 <div *ngIf="matrix_loaded">
 <table>
