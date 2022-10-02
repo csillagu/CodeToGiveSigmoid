@@ -50,20 +50,29 @@ class ChairLampResult:
 
     def _get_category(self, performance: float, performance_map) -> str:
         assert performance >= 0
-        for minimum_performance in list(performance_map.keys())[::-1]:
+        for minimum_performance in list(performance_map.keys()):
             if performance >= minimum_performance:
                 return performance_map[minimum_performance]
 
 
-def check_user_exists(http_method):
-    @wraps(http_method)
-    def wrapper(cls, request: Request, *args, **kwargs):
-        user_id = request.path.split('/')[-1]
-        if not User.objects.filter(user_hash=user_id).exists():
-            return Response('No such User', status=400)
-        return http_method(cls, request, *args, **kwargs)
+def check_can_start(test_model, *args, **kwargs):
+    def http_request_wrapper(http_method, **kwargs):
+        @wraps(http_method)
+        def wrapper(cls, request: Request, *args, **kwargs):
+            user_id = request.path.split('/')[-1]
+            try:
+                if not User.objects.filter(user_hash=user_id).exists():
+                    return Response('No such User', status=400)
+                test_record = test_model.objects.get(user_hash=user_id)
+                if test_record.correct_indices is not None:
+                    return Response('User Already Started The Test', status=400)
+            except test_model.DoesNotExist as ex:
+                pass #If the user is not in the test's table, then they can start the test
+            return http_method(cls, request, *args, **kwargs)
 
-    return wrapper
+        return wrapper
+
+    return http_request_wrapper
 
 
 def check_test_started(test_model, *args, **kwargs):
@@ -72,8 +81,8 @@ def check_test_started(test_model, *args, **kwargs):
         def wrapper(cls, request: Request, *args, **kwargs):
             user_id = request.path.split('/')[-1]
             try:
-                chair_lamp_record = ChairLamp.objects.get(user_hash=user_id)
-                if chair_lamp_record.correct_indices is None:
+                test_record = test_model.objects.get(user_hash=user_id)
+                if test_record.correct_indices is None:
                     return Response('User Did Not Start The Test', status=400)
             except test_model.DoesNotExist as ex:
                 return Response('User Did Not Start The Test', status=400)
@@ -105,7 +114,7 @@ class ChairLampEndpoint(APIView, MatrixModel):
         APIView.__init__(self)
         MatrixModel.__init__(self, width=3, height=4, n_classes=4)
 
-    @check_user_exists
+    @check_can_start(test_model=ChairLamp)
     def get(self, request: Request, _format=None):
 
         user_id = request.path.split('/')[-1]
@@ -147,14 +156,22 @@ class ChairLampEndpoint(APIView, MatrixModel):
 
     @check_test_started(test_model=ChairLamp)
     def post(self, request: Request, format=None):
-        """{"circled" : [[0,2,4,9,10], [11,21,23], [40,43,51]]} """
+        """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]]} """
 
         body = json.loads(request.body)
         user_id = request.path.split('/')[-1]
 
         chair_lamp_record = ChairLamp.objects.get(user_hash=user_id)
 
-        errors, revised = self._evaluate_minutely_data(body['circled'], json.loads(chair_lamp_record.correct_indices))
+
+        #take only revised indices into consideration
+        circled_indices_per_minute = body['circled']
+        correct_indices = json.loads(chair_lamp_record.correct_indices)
+        max_revised_index = np.max(circled_indices_per_minute)
+        correct_indices = [idx for idx in correct_indices if idx <= max_revised_index]
+
+
+        errors, revised = self._evaluate_minutely_data(circled_indices_per_minute, correct_indices)
 
         results = self._get_metrics(errors, revised)
 
@@ -171,7 +188,7 @@ class ToulousePieronEndpoint(APIView, MatrixModel):
         APIView.__init__(self)
         MatrixModel.__init__(self, width=20, height=20, n_classes=360 // 45)
 
-    @check_user_exists
+    @check_can_start(test_model=ToulousePieron)
     def get(self, request: Request, _format=None):
         user_id = request.path.split('/')[-1]
 
@@ -196,13 +213,15 @@ class ToulousePieronEndpoint(APIView, MatrixModel):
             pieron_record.save()
             return Response(data="Incorrect completion of test", status=400)
 
-        correct_indices = pieron_record.correct_indices
+        correct_indices = json.loads(pieron_record.correct_indices)
 
-        # ignore first row
-        not_circled = sum([1 for idx in correct_indices not in final_circled_indices if idx >= self.width])
-        incorrectly_circled = sum([1 for idx in final_circled_indices not in correct_indices if idx >= self.width])
+        # ignore first row and not revised
+        last_revised_index = max(final_circled_indices)
+        correct_indices = [idx for idx in correct_indices if idx <= last_revised_index]
+        not_circled = sum([1 for idx in correct_indices if idx not in final_circled_indices and idx >= self.width])
+        incorrectly_circled = sum([1 for idx in final_circled_indices if idx not in correct_indices and idx >= self.width])
 
-        errors = len(not_circled) + len(incorrectly_circled)
+        errors = not_circled + incorrectly_circled
         revised = (max(final_circled_indices) + 1) - self.width
 
         pieron_record.results = {"accuracy": (revised - errors) / revised * 100}
