@@ -19,7 +19,7 @@ export class TestTableComponent implements OnDestroy {
   test_finished=false
   timerDisplay=""
   time=0
-  descriprion="IDE JÖN A LEÍRÁS"
+  description="IDE JÖN A LEÍRÁS"
   offlineUrl = 'assets/matrix.json';
   timer: Subscription | undefined
   http_sub: Array<Subscription>=[]
