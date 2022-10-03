@@ -176,6 +176,7 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
         """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string"}"""
 
         body = json.loads(request.body)
+        print(body)
         user_id = request.path.split('/')[-1]
         chair_lamp_record = ChairLamp.objects.get(user_hash=user_id)
         marked_indices_per_minute = body['circled']
@@ -225,7 +226,7 @@ class ToulousePieronEndpoint(APIView, IncrementalMatrixTest):
         pieron_record = ToulousePieron.objects.get(user_hash=user_id)
         marked_indices = body['circled'][-1]  # only check finally marked indices
         correct_indices = json.loads(pieron_record.correct_indices)
-
+        print(body)
         try:
             marked_indices, correct_indices = self.preprocess_and_validate([marked_indices], correct_indices)
         except ValueError:
