@@ -54,9 +54,9 @@ class ChairLampResult:
 
 
 class ChairLampEndpoint(APIView):
-    width = 3
-    height = 4
-    n_pictures = 4
+    width = 19
+    height = 21
+    n_pictures = 18
     correct_pictures = [0, 3]
 
     def get(self, request: Request, _format=None):
@@ -67,7 +67,7 @@ class ChairLampEndpoint(APIView):
         if not User.objects.filter(user_hash=user_id).exists():
             return Response('No such User',status=400)
 
-        random_matrix = np.random.randint(0, self.n_pictures, (self.height, self.width), dtype=int)
+        random_matrix = np.random.randint(1, self.n_pictures+1, (self.height, self.width), dtype=int)
 
         correct_indices = [idx for idx, value in enumerate((random_matrix.flatten())) if
                            value in self.correct_pictures]
