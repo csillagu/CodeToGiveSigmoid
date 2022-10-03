@@ -1,8 +1,8 @@
 <div *ngIf="errorText">
   <h1>{{errorText}}</h1>
 </div>
+{{uid}}
 <div *ngIf="!test_finished||errorText">
-  <div>{{timerDisplay}}</div>
   <div *ngIf="!matrix_loaded">
     <button (click)="onLoadClick()">Load Image</button>
   </div>
@@ -10,7 +10,7 @@
   <table>
     <tr *ngFor="let ma of matrix; let maindex=index">
       <td *ngFor="let m of ma; let mindex=index">
-        <img src="/assets/symbols/{{m}}.svg" height="117" width="102" (click)="onImageClick(mindex, maindex)"/></td>
+        <img src="/assets/symbols/{{m}}.svg" height="50" width="50" (click)="onImageClick(mindex, maindex)"/></td>
     </tr>
   </table>
     <button (click)="submit()">Submit</button>

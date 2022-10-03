@@ -1,20 +1,22 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Config, ConfigService} from "../config/config.service";
 import {Observable, range, Subscription} from "rxjs";
 import { timer } from "rxjs";
+import {LeftMenuComponent} from "../left-menu/left-menu.component";
+import {MenuService} from "../comm/MenuService";
 
 @Component({
   selector: 'app-test-table',
   templateUrl: './test-table.component.html',
-  styleUrls: ['./test-table.component.css']
+  styleUrls: ['./test-table.component.css'],
 })
 
 export class TestTableComponent implements OnDestroy {
   matrix:Array<Array<Number>> =[]
   results:Array<Array<Number>> =[]
   results_row:Array<Number>=[-1]
-  matrix_loaded:Boolean =false
+  matrix_loaded:boolean =false
   test_finished=false
   timerDisplay=""
   time=0
@@ -22,8 +24,7 @@ export class TestTableComponent implements OnDestroy {
   offlineUrl = 'assets/matrix.json';
   timer: Subscription | undefined
   http_sub: Array<Subscription>=[]
-  res_post: Subscription | undefined
-
+  uid=window.location.href.split('/')[window.location.href.split('/').length-1]
   errorText: string | null | undefined
   onLoadClick(){
     try {
@@ -50,6 +51,7 @@ export class TestTableComponent implements OnDestroy {
     this.results.push(this.results_row)
     this.timer?.unsubscribe()
     try {
+
       this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/chairlamp/bfe07c76562eb1fccb970ed3b30800d5',
         {circled: this.results, finished_at: this.time}, {observe: "response"}).subscribe(
         (data) => this.processPostResponse(data)))
@@ -82,7 +84,8 @@ export class TestTableComponent implements OnDestroy {
       console.log(this.results)
     }
   }
-  constructor(private http : HttpClient) {
+  constructor(private http : HttpClient, private menu:MenuService) {
+    menu.uid=this.uid
   }
 
   ngOnDestroy(): void {
@@ -102,8 +105,11 @@ export class TestTableComponent implements OnDestroy {
   }
   startTimer(){
     this.timer=timer(0, 1000).subscribe(ec => {
+
       this.time++;
       this.timerDisplay= this.getDisplayTimer(this.time);
+      this.menu.timeRunning=this.matrix_loaded
+      this.menu.timeDisplay=this.timerDisplay
       if(this.time==30){
         this.submit()
       }
