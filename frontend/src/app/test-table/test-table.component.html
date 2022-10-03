@@ -1,7 +1,6 @@
 <div *ngIf="errorText">
   <h1>{{errorText}}</h1>
 </div>
-{{uid}}
 <div *ngIf="!test_finished||errorText">
   <div *ngIf="!matrix_loaded">
     <button (click)="onLoadClick()">Load Image</button>
@@ -9,8 +8,13 @@
   <div *ngIf="matrix_loaded">
   <table>
     <tr *ngFor="let ma of matrix; let maindex=index">
-      <td *ngFor="let m of ma; let mindex=index">
-        <img src="/assets/tests/test1/symbols/{{m}}.svg" height="50" width="50" (click)="onImageClick(mindex, maindex)"/></td>
+      <td *ngFor="let m of ma; let mindex=index" >
+        <img *ngIf="mindex!=0" src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"
+             height="{{testdata.height}}" width="{{testdata.width}}" (click)="onImageClick(mindex, maindex)"
+             style="{{(row_length*maindex+mindex<max_field)?testdata.disbledStyle:''}}"/>
+        <img *ngIf="mindex==0" src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"  style="{{testdata.firstColumnStyle}};{{(row_length*maindex+mindex<max_field)&&testdata.firstCheckable?testdata.disbledStyle:''}}"
+             height="{{testdata.height}}" width="{{testdata.width}}" (click)="onImageClick(mindex, maindex)"/>
+      </td>
     </tr>
   </table>
     <button (click)="submit()">Submit</button>

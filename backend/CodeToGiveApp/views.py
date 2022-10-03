@@ -209,7 +209,7 @@ class ToulousePieronEndpoint(APIView, IncrementalMatrixTest):
         APIView.__init__(self)
         IncrementalMatrixTest.__init__(self, width=20, height=20, n_classes=360 // 45)
 
-    @check_can_start(test_model=ToulousePieron)
+    #@check_can_start(test_model=ToulousePieron)
     def get(self, request: Request, _format=None):
         user_id = request.path.split('/')[-1]
 
@@ -219,7 +219,7 @@ class ToulousePieronEndpoint(APIView, IncrementalMatrixTest):
         ToulousePieron(user_id, correct_indices).save()
         return Response(data={'matrix': random_matrix}, status=200)
 
-    @check_test_started(test_model=ToulousePieron)
+    #@check_test_started(test_model=ToulousePieron)
     def post(self, request: Request, format=None):
         """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string"}"""
 
@@ -256,7 +256,7 @@ class BourdonEndpoint(APIView, IncrementalMatrixTest):
         APIView.__init__(self)
         IncrementalMatrixTest.__init__(self, width=40, height=40, n_classes=26)
 
-    @check_can_start(test_model=Bourdon)
+    #@check_can_start(test_model=Bourdon)
     def get(self, request: Request, _format=None):
         user_id = request.path.split('/')[-1]
 
@@ -273,7 +273,7 @@ class BourdonEndpoint(APIView, IncrementalMatrixTest):
         Bourdon(user_id, correct_indices).save()
         return Response(data={'matrix': random_matrix}, status=200)
 
-    @check_test_started(test_model=Bourdon)
+    #@check_test_started(test_model=Bourdon)
     def post(self, request: Request, format=None):
         """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string"}"""
 

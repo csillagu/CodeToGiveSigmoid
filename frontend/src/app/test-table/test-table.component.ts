@@ -1,6 +1,6 @@
 import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Config} from "../config/config.service";
+import {Config, TestData} from "../config/config.service";
 import {isEmpty, Observable, range, Subscription} from "rxjs";
 import { timer } from "rxjs";
 import {MenuService} from "../comm/MenuService";
@@ -13,22 +13,27 @@ import {MenuService} from "../comm/MenuService";
 
 export class TestTableComponent implements OnDestroy {
   matrix:Array<Array<number>> =[]
+  row_length=0
+  max_field=-1
   results:Array<Array<number>> =[]
-  results_row:Array<number>=[]
+  results_row:Array<number>=[-1]
   matrix_loaded:boolean =false
   test_finished=false
   timerDisplay=""
   time=0
-  description="IDE JÖN A LEÍRÁS"
-  offlineUrl = 'assets/matrix.json';
+
   timer: Subscription | undefined
   http_sub: Array<Subscription>=[]
   uid=window.location.href.split('/')[window.location.href.split('/').length-1]
+  endpoint=window.location.href.split('/')[window.location.href.split('/').length-2]
   errorText: string | null | undefined
+  testdata:TestData
+
   uid_temp="b388f8f2d66022828a5c0b48c17696cd"
+  endpoint_temp="bourdon"
   onLoadClick(){
     try {
-      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/chairlamp/'+this.uid_temp,
+      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/'+this.endpoint+'/'+this.uid,
         {responseType: 'json', observe: "response", headers: {}})
         .subscribe(data => this.processGetResponse(data),
         error=>{this.errorText=error}))
@@ -41,6 +46,7 @@ export class TestTableComponent implements OnDestroy {
   private processGetResponse(data: HttpResponse<Config>) {
     if ((+data.status) == 200) {
       this.matrix = data.body!.matrix
+      this.row_length=this.matrix[0].length
       this.matrix_loaded = true
       this.startTimer()
     } else {
@@ -54,7 +60,7 @@ export class TestTableComponent implements OnDestroy {
     console.log(this.results)
     this.timer?.unsubscribe()
     try {
-      this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/chairlamp/'+this.uid_temp,
+      this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/'+this.endpoint+'/'+this.uid,
         {circled: this.results, finished: this.time}, {observe: "response"}).subscribe(
         (data) => this.processPostResponse(data),
         error=>{this.errorText=error}))
@@ -80,16 +86,20 @@ export class TestTableComponent implements OnDestroy {
 
   onImageClick(col:number, row:number){
     //elmenti, hogy be van karikázva:
-    let row_length=this.matrix[0].length
-    if(this.results_row.length==0 || row_length*row+col>this.results_row[this.results_row.length-1]){
-      this.results_row.push(row_length*row+col)
+    if((this.results_row.length==0 || this.row_length*row+col>this.max_field)&&(this.testdata.firstCheckable||col!=0)){
+      this.max_field=this.row_length*row+col
+      this.results_row.push(this.max_field)
       //konkreét karika:
       this.matrix[row][col]+=100
       console.log(this.results)
+      //előzőeket beszürkíti
+      //let lastCircled=this.disabledFields[this.disabledFields.length-1]
+      //this.disabledFields.concat([...Array(this.row_length*row+col-lastCircled).keys()].map(i => i + lastCircled))
     }
   }
   constructor(private http : HttpClient, private menu:MenuService) {
     menu.uid=this.uid
+    this.testdata=this.createTestData()!
   }
 
   ngOnDestroy(): void {
@@ -122,8 +132,18 @@ export class TestTableComponent implements OnDestroy {
       }
     });
   }
-  ngOnInit() {
-
+  createTestData():TestData | null{
+    switch (this.endpoint) {
+      case "chairlamp":
+        return new TestData(this.endpoint, "",
+          "svg", "50","50", "background: red", true)
+      case "bourdon":
+        return new TestData(this.endpoint, "background: rebeccapurple",
+          "???","50","50", "", false)
+      case "toulousepieron":
+        return new TestData(this.endpoint, "background: rebeccapurple",
+          "png", "50","50", "background: red",false)
+    }
+    return null
   }
-
 }
