@@ -25,9 +25,10 @@ export class TestTableComponent implements OnDestroy {
   http_sub: Array<Subscription>=[]
   uid=window.location.href.split('/')[window.location.href.split('/').length-1]
   errorText: string | null | undefined
+  uid_temp="b388f8f2d66022828a5c0b48c17696cd"
   onLoadClick(){
     try {
-      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/chairlamp/5b095202389947e51b1cc651c5106ace',
+      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/chairlamp/'+this.uid_temp,
         {responseType: 'json', observe: "response", headers: {}})
         .subscribe(data => this.processGetResponse(data),
         error=>{this.errorText=error}))
@@ -53,7 +54,7 @@ export class TestTableComponent implements OnDestroy {
     console.log(this.results)
     this.timer?.unsubscribe()
     try {
-      this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/chairlamp/5b095202389947e51b1cc651c5106ace',
+      this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/chairlamp/'+this.uid_temp,
         {circled: this.results, finished: this.time}, {observe: "response"}).subscribe(
         (data) => this.processPostResponse(data),
         error=>{this.errorText=error}))
@@ -67,7 +68,7 @@ export class TestTableComponent implements OnDestroy {
   private processPostResponse(data: HttpResponse<string>) {
     console.log(data.status)
     this.matrix_loaded = false
-    if (data.status == 200) {
+    if (data.status == 204) {
       this.test_finished = true
       console.log(this.results)
     } else if (data.status == 400) {
