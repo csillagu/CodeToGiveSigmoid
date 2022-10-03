@@ -148,7 +148,7 @@ class IncrementalMatrixTest:
             error = [idx for idx in circled_indices if idx not in correct_indices + ignored_indices] + \
                     [idx for idx in correct_indices if idx not in circled_indices + ignored_indices]
 
-            revised.append((max(diff_from_previous_min) if prev_min != [] else 0) - (max(prev_min) if prev_min != [] else 0))
+            revised.append((max(diff_from_previous_min) if diff_from_previous_min != [] else 0) - (max(prev_min) if prev_min != [] else 0))
             errors.append(len(error))
 
         return errors, revised
@@ -177,7 +177,6 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
 
         body = json.loads(request.body)
         user_id = request.path.split('/')[-1]
-        print(body)
         chair_lamp_record = ChairLamp.objects.get(user_hash=user_id)
         marked_indices_per_minute = body['circled']
         correct_indices = json.loads(chair_lamp_record.correct_indices)
@@ -293,8 +292,6 @@ class BourdonEndpoint(APIView, IncrementalMatrixTest):
         ignored_indices = list(range(0, self.width * self.height, self.width))
         errors, revised = self._evaluate_incremental_filling(marked_indices_per_minute, correct_indices,
                                                              ignored_indices)
-        print(correct_indices)
-        print(ignored_indices,errors,revised)
 
         metrics = self._get_incremental_metrics(errors, revised)
         metrics = dataclasses.asdict(metrics)

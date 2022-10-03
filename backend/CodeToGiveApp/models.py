@@ -2,7 +2,7 @@ import json
 from django.db import models
 
 
-# Create your models here.
+
 class User(models.Model):
     user_hash = models.CharField(primary_key=True, max_length=32)
     user_name = models.CharField(max_length=100)
