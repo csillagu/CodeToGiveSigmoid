@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Code To Give ';
+  test_started = false;
+
+
+  start_test(){
+    console.log('hello')
+    this.test_started = true
+}
+
 }

@@ -6,7 +6,53 @@
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<h1>{{title}}</h1>
-<app-left-menu></app-left-menu>
-<app-test-table></app-test-table>
 
+<div fxLayout="row">
+  <div fxFlex="33%"></div>
+  <div fxFlex="33%" fxLayoutAlign="center center">
+    <h1 style = "font-size: 60px">{{title}}</h1>
+  </div>
+  <div fxFlex="33%" fxLayoutAlign="center center">
+    <h2>High Contrast </h2>
+    <label class="switch">
+      <input class = "high_contrast_toggle" type="checkbox">
+      <span class="slider round"></span>
+    </label>
+  </div>
+</div>
+
+<div *ngIf=test_started>
+  <app-left-menu></app-left-menu>
+  <app-test-table></app-test-table>
+</div>
+<div *ngIf=!test_started>
+  <div fxLayout="row">
+      <div fxFlex="15%"></div>
+      <div fxFlex="40%" class="instructions">
+         <dl>
+           <dd class="list_item">
+             The dog or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog's nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter-gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11]
+           </dd>
+           <dd class="list_item">
+             The dog has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes.[12] Dog breeds vary widely in shape, size, and color. They perform many roles for humans, such as hunting, herding, pulling loads, protection, assisting police and the military, companionship, therapy, and aiding disabled people. Over the millennia, dogs became uniquely adapted to human behavior, and the human-canine bond has been a topic of frequent study.[13] This influence on human society has given them the sobriquet of "man's best friend".[14]
+           </dd>
+        </dl>
+      </div>
+
+    <div fxFlex="15%" class="gif">
+        <img id="gif_img" src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves"  >
+      </div>
+      <div fxFlex="25%"></div>
+  </div>
+
+  <div fxLayout="row">
+  <div fxFlex="33%"></div>
+  <div fxFlex="33%" fxLayoutAlign="center center">
+    <button id="start_button" (click)="start_test()" >Start</button>
+  </div>
+  <div fxFlex="33%">
+  </div>
+</div>
+
+
+</div>
