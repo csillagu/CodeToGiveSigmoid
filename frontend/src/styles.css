@@ -44,3 +44,17 @@ button:disabled {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+app-test-table{
+  vertical-align: center;
+}
+li{
+  list-style-type: armenian;
+}
+app-left-menu{
+  float: left;
+  width: 9%;
+  margin-right: 7em;
+}
+th,td{
+  padding: 0;
+}

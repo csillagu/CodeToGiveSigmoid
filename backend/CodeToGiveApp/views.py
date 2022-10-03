@@ -70,6 +70,7 @@ def check_can_start(test_model, *args, **kwargs):
                 pass  # If the user is not in the test's table, then they can start the test
             return http_method(cls, request, *args, **kwargs)
 
+
         return wrapper
 
     return http_request_wrapper
@@ -91,6 +92,7 @@ def check_test_started(test_model, *args, **kwargs):
         return wrapper
 
     return http_request_wrapper
+
 
 
 class IncrementalMatrixTest:
