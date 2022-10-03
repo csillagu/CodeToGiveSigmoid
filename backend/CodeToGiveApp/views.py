@@ -137,7 +137,7 @@ class IncrementalMatrixTest:
 
     def _evaluate_incremental_filling(self, incrementally_marked_indices: List[List[int]]
                                       , correct_indices: List[int]
-                                      , ignored_indices: List[int] = ()):
+                                      , ignored_indices: List[int] = []):
         revised = []
         errors = []
 
@@ -148,7 +148,7 @@ class IncrementalMatrixTest:
             error = [idx for idx in circled_indices if idx not in correct_indices + ignored_indices] + \
                     [idx for idx in correct_indices if idx not in circled_indices + ignored_indices]
 
-            revised.append(max(diff_from_previous_min) - (max(prev_min) if prev_min != [] else 0))
+            revised.append((max(diff_from_previous_min) if prev_min != [] else 0) - (max(prev_min) if prev_min != [] else 0))
             errors.append(len(error))
 
         return errors, revised
@@ -159,9 +159,9 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
 
     def __init__(self, **kwargs):
         APIView.__init__(self)
-        IncrementalMatrixTest.__init__(self, width=3, height=4, n_classes=4)
+        IncrementalMatrixTest.__init__(self, width=19, height=21, n_classes=18)
 
-    @check_can_start(test_model=ChairLamp)
+    #@check_can_start(test_model=ChairLamp)
     def get(self, request: Request, _format=None):
         user_id = request.path.split('/')[-1]
 
@@ -171,13 +171,13 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
         ChairLamp(user_id, correct_indices).save()
         return Response(data={'matrix': random_matrix, "correct_indices": self.correct_picture_indices}, status=200)
 
-    @check_test_started(test_model=ChairLamp)
+    #@check_test_started(test_model=ChairLamp)
     def post(self, request: Request, format=None):
         """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string"}"""
 
         body = json.loads(request.body)
         user_id = request.path.split('/')[-1]
-
+        print(body)
         chair_lamp_record = ChairLamp.objects.get(user_hash=user_id)
         marked_indices_per_minute = body['circled']
         correct_indices = json.loads(chair_lamp_record.correct_indices)
