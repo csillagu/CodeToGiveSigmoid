@@ -117,7 +117,7 @@ class IncrementalMatrixTest:
     def _get_incremental_metrics(self, errors: List[int], revised: List[int]) -> IncrementalMetrics:
         quality_of_attention_total = round(sum(errors) / sum(revised) * 100, 2)
 
-        quality_of_attention_minutes = [round(errors[i] / revised[i] * 100, 2) for i in range(len(revised))]
+        quality_of_attention_minutes = [round(errors[i] / revised[i] * 100, 2) if revised[i] != 0 else 0 for i in range(len(revised))]
         extent_of_attention = max(revised) - min(revised)
 
         result = IncrementalMetrics(quality_of_attention_total=quality_of_attention_total,
@@ -140,15 +140,16 @@ class IncrementalMatrixTest:
                                       , ignored_indices: List[int] = []):
         revised = []
         errors = []
-
         for minute_idx, circled_indices in enumerate(incrementally_marked_indices):
             prev_min = [] if minute_idx == 0 else incrementally_marked_indices[minute_idx - 1]
             diff_from_previous_min = [idx for idx in circled_indices if idx not in prev_min]
 
             error = [idx for idx in circled_indices if idx not in correct_indices + ignored_indices] + \
                     [idx for idx in correct_indices if idx not in circled_indices + ignored_indices]
-
-            revised.append((max(diff_from_previous_min) if diff_from_previous_min != [] else 0) - (max(prev_min) if prev_min != [] else 0))
+            if len(diff_from_previous_min) != 0:
+                revised.append((max(diff_from_previous_min) if diff_from_previous_min != [] else 0) - (max(prev_min) if prev_min != [] else 0))
+            else:
+                revised.append(0)
             errors.append(len(error))
 
         return errors, revised
@@ -189,6 +190,7 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
             return Response(data="Incorrect completion of test", status=400)
 
         errors, revised = self._evaluate_incremental_filling(marked_indices_per_minute, correct_indices)
+
         metrics = self._get_incremental_metrics(errors, revised)
 
         metrics = dataclasses.asdict(metrics)
