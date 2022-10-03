@@ -1,9 +1,8 @@
 import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Config, ConfigService} from "../config/config.service";
-import {Observable, range, Subscription} from "rxjs";
+import {Config} from "../config/config.service";
+import {isEmpty, Observable, range, Subscription} from "rxjs";
 import { timer } from "rxjs";
-import {LeftMenuComponent} from "../left-menu/left-menu.component";
 import {MenuService} from "../comm/MenuService";
 
 @Component({
@@ -13,9 +12,9 @@ import {MenuService} from "../comm/MenuService";
 })
 
 export class TestTableComponent implements OnDestroy {
-  matrix:Array<Array<Number>> =[]
-  results:Array<Array<Number>> =[]
-  results_row:Array<Number>=[-1]
+  matrix:Array<Array<number>> =[]
+  results:Array<Array<number>> =[]
+  results_row:Array<number>=[]
   matrix_loaded:boolean =false
   test_finished=false
   timerDisplay=""
@@ -28,9 +27,10 @@ export class TestTableComponent implements OnDestroy {
   errorText: string | null | undefined
   onLoadClick(){
     try {
-      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/chairlamp/bfe07c76562eb1fccb970ed3b30800d5',
-        {responseType: 'json', observe: "response", headers: {}}).subscribe(data =>
-        this.processGetResponse(data)))
+      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/chairlamp/5b095202389947e51b1cc651c5106ace',
+        {responseType: 'json', observe: "response", headers: {}})
+        .subscribe(data => this.processGetResponse(data),
+        error=>{this.errorText=error}))
     }
     catch (e) {
             this.errorText="HOGY KELL EXCEPTIONBOL STRINGET KISZEDNI????"
@@ -49,14 +49,17 @@ export class TestTableComponent implements OnDestroy {
 
   submit(){
     this.results.push(this.results_row)
+    console.log("ITT EZ A SZAR")
+    console.log(this.results)
     this.timer?.unsubscribe()
     try {
-
-      this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/chairlamp/bfe07c76562eb1fccb970ed3b30800d5',
-        {circled: this.results, finished_at: this.time}, {observe: "response"}).subscribe(
-        (data) => this.processPostResponse(data)))
+      this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/chairlamp/5b095202389947e51b1cc651c5106ace',
+        {circled: this.results, finished: this.time}, {observe: "response"}).subscribe(
+        (data) => this.processPostResponse(data),
+        error=>{this.errorText=error}))
     }catch (e){
       this.matrix_loaded=false
+
       this.errorText="HOGY KELL EXCEPTIONBOL STRINGET KISZEDNI????"
     }
   }
@@ -77,10 +80,10 @@ export class TestTableComponent implements OnDestroy {
   onImageClick(col:number, row:number){
     //elmenti, hogy be van karikázva:
     let row_length=this.matrix[0].length
-    if(row_length*row+col>this.results_row[this.results_row.length-1]){
+    if(this.results_row.length==0 || row_length*row+col>this.results_row[this.results_row.length-1]){
       this.results_row.push(row_length*row+col)
       //konkreét karika:
-      this.matrix[row][col]=1
+      this.matrix[row][col]+=100
       console.log(this.results)
     }
   }
