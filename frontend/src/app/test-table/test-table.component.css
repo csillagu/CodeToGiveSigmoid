@@ -11,5 +11,9 @@
   background: darkred;
 }
 .selected{
-  border: 10px dotted black;
+  border: 3px saddlebrown dashed;
+   box-sizing: border-box;
+}
+img{
+  border-radius: 10%;
 }

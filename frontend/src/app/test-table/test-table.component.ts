@@ -1,4 +1,4 @@
-import {Component,  OnDestroy} from '@angular/core';
+import {Component, HostListener, OnDestroy} from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Config, TestData} from "../config/config.service";
 import {Subscription} from "rxjs";
@@ -41,7 +41,8 @@ export class TestTableComponent implements OnDestroy {
         error=>{this.errorText=error}))
     }
     catch (e) {
-            this.errorText="HOGY KELL EXCEPTIONBOL STRINGET KISZEDNI????"
+      console.log("error")
+      this.errorText="HOGY KELL EXCEPTIONBOL STRINGET KISZEDNI????"
     }
   }
 
@@ -58,7 +59,6 @@ export class TestTableComponent implements OnDestroy {
 
   submit(){
     this.results.push(this.results_row)
-    console.log("ITT EZ A SZAR")
     console.log(this.results)
     this.timer?.unsubscribe()
     try {
@@ -69,7 +69,6 @@ export class TestTableComponent implements OnDestroy {
         error=>{this.errorText=error}))
     }catch (e){
       this.matrix_loaded=false
-
       this.errorText="HOGY KELL EXCEPTIONBOL STRINGET KISZEDNI????"
     }
   }
@@ -89,21 +88,57 @@ export class TestTableComponent implements OnDestroy {
   }
 
   onImageClick(col:number, row:number){
+    this.cursor=this.row_length*row+col
     //elmenti, hogy be van karikázva:
     if((this.results_row.length==0 || this.row_length*row+col>this.max_field)&&(this.testdata.firstCheckable||col!=0)){
       this.max_field=this.row_length*row+col
       this.results_row.push(this.max_field)
       //konkreét karika:
-      this.matrix[row][col]+=100
+      this.setCircled(row, col);
       console.log(this.results)
-      //előzőeket beszürkíti
-      //let lastCircled=this.disabledFields[this.disabledFields.length-1]
-      //this.disabledFields.concat([...Array(this.row_length*row+col-lastCircled).keys()].map(i => i + lastCircled))
     }
+  }
+
+  private setCircled(row: number, col: number) {
+    //modify picture name
+    this.matrix[row][col] += 100
   }
 
   constructor(private http : HttpClient, private menu:MenuService, private startservice: StartScreenService) {
     this.testdata=this.createTestData()!
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyEvent(event: KeyboardEvent) {
+    let col_length=this.matrix.length
+    let max_index=col_length*this.row_length
+    switch (event.code) {
+      case "ArrowRight":
+        if(this.cursor<max_index-1)
+          this.cursor++
+        break
+      case "ArrowDown":
+        if(this.cursor+this.row_length<max_index)
+          this.cursor+=this.row_length
+        break
+      case "ArrowLeft":
+        if(this.cursor>0)
+          this.cursor--
+        break
+      case"ArrowUp":
+        if(this.cursor>=this.row_length)
+          this.cursor-=this.row_length
+        break
+      case "Space":
+        console.log("Space")
+        event.preventDefault();
+        this.onImageClick(this.cursor%this.row_length, Math.floor(this.cursor/this.row_length))
+        break
+      case "Enter":
+
+        break
+    }
+    console.log(event);
   }
 
   ngOnDestroy(): void {
@@ -143,7 +178,7 @@ export class TestTableComponent implements OnDestroy {
           "svg", "50","50", "test_data_disabled", true, "selected")
       case "bourdon":
         return new TestData(this.startservice.endpoint, "background: rebeccapurple",
-          "???","50","50", "", false, "selected")
+          "???","20","20", "", false, "selected")
       case "toulousepieron":
         return new TestData(this.startservice.endpoint, "background: rebeccapurple",
           "png", "50","50", "test_data_disabled",false, "selected")
