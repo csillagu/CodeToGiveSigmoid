@@ -87,7 +87,14 @@ vertical-align: middle;
           width: 200px;
         height: 120px;
 }
+.high_contrast_text{
+  padding-right: 2%;
+}
 
+
+.error_cont h1{
+  color: red;
+  }
 .slider:before {
   position: absolute;
   content: "";

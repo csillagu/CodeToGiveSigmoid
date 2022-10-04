@@ -6,14 +6,14 @@
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
+<div *ngIf="!isError">
 <div fxLayout="row">
   <div fxFlex="33%"></div>
   <div fxFlex="33%" fxLayoutAlign="center center">
     <h1 style = "font-size: 60px">{{title}}</h1>
   </div>
   <div fxFlex="33%" fxLayoutAlign="center center">
-    <h2>High Contrast </h2>
+    <h2 class="high_contrast_text" >High Contrast</h2>
     <label class="switch">
       <input class = "high_contrast_toggle" type="checkbox">
       <span class="slider round"></span>
@@ -55,4 +55,13 @@
 </div>
 
 
+</div>
+</div>
+<div *ngIf="isError" class="error_cont">
+  <h1>Error</h1>
+  <p>{{errorText}}</p>
+  <h3 >Test links: <br></h3>
+  <a href="http://localhost:4200/chairlamp/b388f8f2d66022828a5c0b48c17696cd">Chairlamp</a><br>
+  <a href="http://localhost:4200/toulousepieron/b388f8f2d66022828a5c0b48c17696cd">Toulousepieron</a><br>
+  <a href="http://localhost:4200/bourdon/b388f8f2d66022828a5c0b48c17696cd">Bourdon</a><br>
 </div>
