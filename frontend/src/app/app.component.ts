@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {StartScreenService} from "./comm/StartScreenService";
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,21 @@ export class AppComponent {
   test_started = false;
   isError:boolean=false
   errorText:string=""
-  constructor() {
+  constructor(public service:StartScreenService) {
     let uid=window.location.href.split('/')[window.location.href.split('/').length-1]
     let endpoint=window.location.href.split('/')[window.location.href.split('/').length-2]
     if(uid=="") {
       this.isError=true
       this.errorText="Missing user id"
+      service.error=true
     }else if(endpoint==""){
       this.isError=true
       this.errorText="Missing endpoint"
+      service.error=true
+    }else{
+      service.uid=uid
+      this.title=endpoint
+      service.endpoint=endpoint
     }
   }
   start_test(){

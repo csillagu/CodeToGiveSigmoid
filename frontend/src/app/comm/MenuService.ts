@@ -6,7 +6,6 @@ import {Injectable} from "@angular/core";
 export class MenuService{
   timeDisplay:string=""
   timeRunning:boolean=false
-  uid=""
   constructor() {
   }
 }

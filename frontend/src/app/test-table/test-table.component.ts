@@ -4,6 +4,7 @@ import {Config, TestData} from "../config/config.service";
 import {isEmpty, Observable, range, Subscription} from "rxjs";
 import { timer } from "rxjs";
 import {MenuService} from "../comm/MenuService";
+import {StartScreenService} from "../comm/StartScreenService";
 
 @Component({
   selector: 'app-test-table',
@@ -24,16 +25,14 @@ export class TestTableComponent implements OnDestroy {
 
   timer: Subscription | undefined
   http_sub: Array<Subscription>=[]
-  uid=window.location.href.split('/')[window.location.href.split('/').length-1]
-  endpoint=window.location.href.split('/')[window.location.href.split('/').length-2]
+
   errorText: string | null | undefined
   testdata:TestData
 
-  uid_temp="b388f8f2d66022828a5c0b48c17696cd"
-  endpoint_temp="bourdon"
   onLoadClick(){
     try {
-      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/'+this.endpoint+'/'+this.uid,
+      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/'+this.startservice.endpoint+
+        '/'+this.startservice.uid,
         {responseType: 'json', observe: "response", headers: {}})
         .subscribe(data => this.processGetResponse(data),
         error=>{this.errorText=error}))
@@ -60,7 +59,8 @@ export class TestTableComponent implements OnDestroy {
     console.log(this.results)
     this.timer?.unsubscribe()
     try {
-      this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/'+this.endpoint+'/'+this.uid,
+      this.http_sub?.push(this.http.post<string>('http://127.0.0.1:8000/'+this.startservice.endpoint+
+        '/'+this.startservice.uid,
         {circled: this.results, finished: this.time}, {observe: "response"}).subscribe(
         (data) => this.processPostResponse(data),
         error=>{this.errorText=error}))
@@ -76,6 +76,7 @@ export class TestTableComponent implements OnDestroy {
     this.matrix_loaded = false
     if (data.status == 204) {
       this.test_finished = true
+      this.startservice.finished=true
       console.log(this.results)
     } else if (data.status == 400) {
       this.errorText = "User not in db (will be sent from server later)"
@@ -97,8 +98,8 @@ export class TestTableComponent implements OnDestroy {
       //this.disabledFields.concat([...Array(this.row_length*row+col-lastCircled).keys()].map(i => i + lastCircled))
     }
   }
-  constructor(private http : HttpClient, private menu:MenuService) {
-    menu.uid=this.uid
+
+  constructor(private http : HttpClient, private menu:MenuService, private startservice: StartScreenService) {
     this.testdata=this.createTestData()!
   }
 
@@ -133,15 +134,15 @@ export class TestTableComponent implements OnDestroy {
     });
   }
   createTestData():TestData | null{
-    switch (this.endpoint) {
+    switch (this.startservice.endpoint) {
       case "chairlamp":
-        return new TestData(this.endpoint, "",
+        return new TestData(this.startservice.endpoint, "",
           "svg", "50","50", "background: red", true)
       case "bourdon":
-        return new TestData(this.endpoint, "background: rebeccapurple",
+        return new TestData(this.startservice.endpoint, "background: rebeccapurple",
           "???","50","50", "", false)
       case "toulousepieron":
-        return new TestData(this.endpoint, "background: rebeccapurple",
+        return new TestData(this.startservice.endpoint, "background: rebeccapurple",
           "png", "50","50", "background: red",false)
     }
     return null
