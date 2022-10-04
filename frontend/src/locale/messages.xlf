@@ -31,7 +31,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="3318032029353283265" datatype="html">
-        <source> The dog or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog&apos;s nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter-gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11] </source>
+        <source> A KUTYA A DOMESZTIKÁLT KUTYA or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog&apos;s nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter-gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11] </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
           <context context-type="linenumber">42,44</context>

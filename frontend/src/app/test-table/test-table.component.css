@@ -10,3 +10,10 @@
 .test_data_disabled{
   background: darkred;
 }
+.selected{
+  border: 3px saddlebrown dashed;
+   box-sizing: border-box;
+}
+img{
+  border-radius: 10%;
+}

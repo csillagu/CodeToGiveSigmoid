@@ -45,6 +45,7 @@ button:disabled {
   font-family: Arial, Helvetica, sans-serif;
 }
 app-test-table{
+  display: flex;
   vertical-align: center;
 }
 li{

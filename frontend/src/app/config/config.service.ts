@@ -5,7 +5,7 @@ export interface Config {
 export class TestData{
   constructor(public type:string, public firstColumnStyle:string,
               public ext:string, public width:string, public height:string, public disbledClass:string,
-              public firstCheckable:boolean) {
+              public firstCheckable:boolean, public selectedClass:string) {
 
   }
 
