@@ -14,10 +14,13 @@ import {StartScreenService} from "../comm/StartScreenService";
 
 export class TestTableComponent implements OnDestroy {
   matrix:Array<Array<number>> =[]
-  row_length=0
   max_field=-1
+  cursor=0
+
   results:Array<Array<number>> =[]
   results_row:Array<number>=[-1]
+
+  row_length=0
   matrix_loaded:boolean =false
   test_finished=false
   timerDisplay=""
@@ -137,13 +140,13 @@ export class TestTableComponent implements OnDestroy {
     switch (this.startservice.endpoint) {
       case "chairlamp":
         return new TestData(this.startservice.endpoint, "",
-          "svg", "50","50", "test_data_disabled", true)
+          "svg", "50","50", "test_data_disabled", true, "selected")
       case "bourdon":
         return new TestData(this.startservice.endpoint, "background: rebeccapurple",
-          "???","50","50", "", false)
+          "???","50","50", "", false, "selected")
       case "toulousepieron":
         return new TestData(this.startservice.endpoint, "background: rebeccapurple",
-          "png", "50","50", "test_data_disabled",false)
+          "png", "50","50", "test_data_disabled",false, "selected")
     }
     return null
   }

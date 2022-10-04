@@ -10,3 +10,6 @@
 .test_data_disabled{
   background: darkred;
 }
+.selected{
+  border: 10px dotted black;
+}
