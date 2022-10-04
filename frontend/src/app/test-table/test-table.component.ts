@@ -1,7 +1,7 @@
-import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Component,  OnDestroy} from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Config, TestData} from "../config/config.service";
-import {isEmpty, Observable, range, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import { timer } from "rxjs";
 import {MenuService} from "../comm/MenuService";
 import {StartScreenService} from "../comm/StartScreenService";
