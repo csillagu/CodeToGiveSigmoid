@@ -38,6 +38,12 @@ export class AppComponent {
       service.endpoint=endpoint
     }
   }
+
+  changeLang(lang: string) {
+   localStorage.setItem('Language', lang);
+   location.reload();
+}
+
   start_test() {
     console.log('hello')
     this.test_started = true

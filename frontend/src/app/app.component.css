@@ -129,3 +129,9 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.language_img{
+  width: 50px;
+  height: auto;
+}
+

@@ -4,6 +4,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "frontend": {
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "hu-HU" : "src/locale/messages.hu.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,6 +19,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize":["hu-HU"],
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
