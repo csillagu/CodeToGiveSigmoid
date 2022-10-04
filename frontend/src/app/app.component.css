@@ -26,19 +26,19 @@
 }
 
 .instructions{
-  margin-top: 100px;
-    font-size: 200%;
+  margin-top: 20px;
+  font-size: 135%;
   border-width:2px;
   border-style:solid;
   border-color:#444444;
   border-radius: 20px 20px 20px 20px;
 
-  padding: 10px;
 }
 .list_item{
   display: list-item;
-  list-style-type: "🐕";
+  list-style-type: "●";
   padding-inline-start: 1ch;
+  margin-top: 2%;
 }
 .high_contrast_toggle{
   padding-top: 30px;
@@ -58,17 +58,13 @@
 }
 
 #gif_img{
-  display:block;
-vertical-align: middle;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  vertical-align: middle;
     max-height: 100%;
     max-width: 100%;
 
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
     border-width:2px;
     border-style:solid;
     border-color:#444444;
@@ -78,14 +74,14 @@ vertical-align: middle;
 }
 
 #start_button{
-      font-size: 250%;
-    margin-top: 100px;
+      font-size: 150%;
+    margin-top: 30px;
     display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 30px;
-          width: 200px;
-        height: 120px;
+          width: 40%;
+          height: 50%;
 }
 .high_contrast_text{
   padding-right: 2%;

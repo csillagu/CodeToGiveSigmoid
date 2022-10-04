@@ -3,9 +3,7 @@
 </div>
 
 <div *ngIf="!test_finished||errorText">
-  <div *ngIf="!matrix_loaded">
-    <button (click)="onLoadClick()">Load Image</button>
-  </div>
+
   <div *ngIf="matrix_loaded">
   <table>
     <tr *ngFor="let ma of matrix; let maindex=index">

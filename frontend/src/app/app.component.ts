@@ -30,7 +30,7 @@ export class AppComponent {
 
       var title_endpoint_map = new Map ([
         ["chairlamp",  "Chair-Lamp Test"],
-        ["toulousepieron",  "Toulouse-Piéron Cancelation Test"],
+        ["toulousepieron",  "Toulouse-Piéron Test"],
         ["bourdon",  "Bourdon Test"],
       ]);
 
@@ -45,7 +45,10 @@ export class AppComponent {
 }
 
   start_test() {
-    console.log('hello')
+    const element = document.getElementById("changeLangDiv")
+    if(element != null) {
+      element.style.visibility = "hidden";
+    }
     this.test_started = true
   }
 }

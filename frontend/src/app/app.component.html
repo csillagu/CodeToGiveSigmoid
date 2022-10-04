@@ -11,7 +11,7 @@
   <div fxFlex="33%" fxLayoutAlign="center center">
   </div>
   <div fxFlex="33%" fxLayoutAlign="center center">
-    <h1 style = "font-size: 60px" i18n>{{title}}</h1>
+    <h1 i18n>{{title}}</h1>
   </div>
   <div fxFlex="33%" fxLayoutAlign="center center" fxLayout="column">
 
@@ -23,7 +23,7 @@
       </label>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutGap="20px" id="changeLangDiv">
       <img src="./assets/languages/hun.png" alt="hungarian" i18n-alt class="language_img" (click)="changeLang('hu')">
       <img src="./assets/languages/eng.png" alt="english" i18n-alt class="language_img" (click)="changeLang('en')">
     </div>
@@ -38,17 +38,37 @@
   <div fxLayout="row">
       <div fxFlex="15%"></div>
       <div fxFlex="40%" class="instructions">
-         <dl>
-           <dd class="list_item" i18n>
-             The dog or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog's nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter-gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11]
-           </dd>
-           <dd class="list_item" i18n>
-             The dog has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes.[12] Dog breeds vary widely in shape, size, and color. They perform many roles for humans, such as hunting, herding, pulling loads, protection, assisting police and the military, companionship, therapy, and aiding disabled people. Over the millennia, dogs became uniquely adapted to human behavior, and the human-canine bond has been a topic of frequent study.[13] This influence on human society has given them the sobriquet of "man's best friend".[14]
-           </dd>
+        <dl>
+          <dd class="list_item"  *ngIf="service.endpoint =='chairlamp'" i18n>
+            You will see pictures of different kinds of objects in a matrix. Your task is to find and <b>
+            mark only the chair and lamps:</b><br/>
+            <img src="./assets/tests/chairlamp/symbols/0.svg" alt="first target" i18n-alt style="width: 50px;height: 50px">
+            <img src="./assets/tests/chairlamp/symbols/1.svg" alt="second target" i18n-alt style="width: 50px;height: 50px">
+          </dd>
+          <dd class="list_item" *ngIf="service.endpoint =='toulousepieron'" i18n>
+            You will see pictures of different shapes in a matrix. Your task is to find and mark only the ones listed here:<br/>
+            <img src="./assets/tests/toulousepieron/symbols/1.png" alt="first target" i18n-alt>
+            <img src="./assets/tests/toulousepieron/symbols/4.png" alt="second target" i18n-alt>
+            <img src="./assets/tests/toulousepieron/symbols/5.png" alt="third target" i18n-alt>
+            <img src="./assets/tests/toulousepieron/symbols/6.png" alt="fourth target" i18n-alt>
+          </dd>
+          <dd class="list_item" *ngIf="service.endpoint =='bourdon'" i18n>
+            You will see pictures of letters in a matrix. Your task is to find and mark only the letters that are the same as
+            the highlighted firsts in the respective rows.
+          </dd>
+          <dd class="list_item" i18n>
+            You will have <b>5 minutes</b> to complete this test but we record your progess every minute.
+          </dd>
+          <dd class="list_item" i18n>
+            Once you are finished click the button on the bottom to submit your results.
+          </dd>
+          <dd class="list_item" i18n>
+            Press the start button to begin your test. Good luck!
+          </dd>
         </dl>
       </div>
 
-    <div fxFlex="15%" class="gif">
+    <div fxFlex="15%" class="gif" style="display: inline-block;height: 100%;vertical-align: middle;position: relative" >
         <img id="gif_img" src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves" i18n-alt>
       </div>
       <div fxFlex="25%"></div>

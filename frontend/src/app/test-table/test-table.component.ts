@@ -32,6 +32,11 @@ export class TestTableComponent implements OnDestroy {
   errorText: string | null | undefined
   testdata:TestData
 
+  constructor(private http : HttpClient, private menu:MenuService, private startservice: StartScreenService) {
+    this.testdata=this.createTestData()!
+    this.onLoadClick()
+  }
+
   onLoadClick(){
     try {
       this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/'+this.startservice.endpoint+
@@ -104,9 +109,7 @@ export class TestTableComponent implements OnDestroy {
     this.matrix[row][col] += 100
   }
 
-  constructor(private http : HttpClient, private menu:MenuService, private startservice: StartScreenService) {
-    this.testdata=this.createTestData()!
-  }
+
 
   @HostListener('window:keydown', ['$event'])
   handleKeyEvent(event: KeyboardEvent) {
