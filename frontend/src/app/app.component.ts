@@ -24,7 +24,15 @@ export class AppComponent {
       service.error=true
     }else{
       service.uid=uid
-      this.title=endpoint
+
+
+      var title_endpoint_map = new Map ([
+        ["chairlamp",  "Chair-Lamp Test"],
+        ["toulousepieron",  "Toulouse-Piéron Cancelation Test"],
+        ["bourdon",  "Bourdon Test"],
+      ]);
+
+      this.title=title_endpoint_map.get(endpoint) || "Unknown Test"
       service.endpoint=endpoint
     }
   }
