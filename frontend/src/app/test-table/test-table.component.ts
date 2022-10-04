@@ -137,13 +137,13 @@ export class TestTableComponent implements OnDestroy {
     switch (this.startservice.endpoint) {
       case "chairlamp":
         return new TestData(this.startservice.endpoint, "",
-          "svg", "50","50", "background: red", true)
+          "svg", "50","50", "test_data_disabled", true)
       case "bourdon":
         return new TestData(this.startservice.endpoint, "background: rebeccapurple",
           "???","50","50", "", false)
       case "toulousepieron":
         return new TestData(this.startservice.endpoint, "background: rebeccapurple",
-          "png", "50","50", "background: red",false)
+          "png", "50","50", "test_data_disabled",false)
     }
     return null
   }

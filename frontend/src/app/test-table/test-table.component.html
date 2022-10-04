@@ -1,6 +1,7 @@
 <div *ngIf="errorText">
   <h1>{{errorText}}</h1>
 </div>
+
 <div *ngIf="!test_finished||errorText">
   <div *ngIf="!matrix_loaded">
     <button (click)="onLoadClick()">Load Image</button>
@@ -11,8 +12,9 @@
       <td *ngFor="let m of ma; let mindex=index" >
         <img *ngIf="mindex!=0" src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"
              height="{{testdata.height}}" width="{{testdata.width}}" (click)="onImageClick(mindex, maindex)"
-             style="{{(row_length*maindex+mindex<max_field)?testdata.disbledStyle:''}}"/>
-        <img *ngIf="mindex==0" src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"  style="{{testdata.firstColumnStyle}};{{(row_length*maindex+mindex<max_field)&&testdata.firstCheckable?testdata.disbledStyle:''}}"
+             class="test_image_{{testdata.type}} {{(row_length*maindex+mindex<max_field)?testdata.disbledClass:''}}"/>
+        <img *ngIf="mindex==0" src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"
+             class="test_image_first_{{testdata.type}} {{(row_length*maindex+mindex<max_field)&&testdata.firstCheckable?testdata.disbledClass:''}}"
              height="{{testdata.height}}" width="{{testdata.width}}" (click)="onImageClick(mindex, maindex)"/>
       </td>
     </tr>

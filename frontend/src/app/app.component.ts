@@ -28,9 +28,8 @@ export class AppComponent {
       service.endpoint=endpoint
     }
   }
-  start_test(){
+  start_test() {
     console.log('hello')
     this.test_started = true
-}
-
+  }
 }
