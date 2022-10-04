@@ -11,6 +11,7 @@ import {MenuService} from "./comm/MenuService";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {TestTableComponent} from "./test-table/test-table.component";
 import {StartScreenService} from "./comm/StartScreenService";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
