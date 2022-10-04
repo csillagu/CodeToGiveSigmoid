@@ -178,7 +178,7 @@ export class TestTableComponent implements OnDestroy {
           "svg", "50","50", "test_data_disabled", true, "selected")
       case "bourdon":
         return new TestData(this.startservice.endpoint, "background: rebeccapurple",
-          "???","20","20", "", false, "selected")
+          "svg","25","25", "test_data_disabled", false, "selected")
       case "toulousepieron":
         return new TestData(this.startservice.endpoint, "background: rebeccapurple",
           "png", "50","50", "test_data_disabled",false, "selected")

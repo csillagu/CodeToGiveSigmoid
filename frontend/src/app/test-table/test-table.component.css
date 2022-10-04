@@ -15,5 +15,7 @@
    box-sizing: border-box;
 }
 img{
+  border: 3px dashed transparent;
+  box-sizing: border-box;
   border-radius: 10%;
 }
