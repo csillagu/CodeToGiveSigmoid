@@ -6,6 +6,7 @@ import {timer} from "rxjs";
 import {MenuService} from "../comm/MenuService";
 import {StartScreenService} from "../comm/StartScreenService";
 import html2canvas from "html2canvas";
+import {ContrastMode} from "../comm/ContrastMode";
 
 @Component({
   selector: 'app-test-table',
@@ -45,11 +46,9 @@ export class TestTableComponent implements OnDestroy, OnInit {
 
   private ctx!: CanvasRenderingContext2D;
 
-  constructor(private http: HttpClient, private menu: MenuService, private startservice: StartScreenService) {
+  constructor(private http: HttpClient, private menu: MenuService, private startservice: StartScreenService, public contrastMode : ContrastMode) {
     this.testdata = this.createTestData()!
     this.onLoadClick()
-
-
   }
 
   ngOnInit() {
