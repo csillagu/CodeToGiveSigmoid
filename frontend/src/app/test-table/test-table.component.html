@@ -4,8 +4,8 @@
 
 <div *ngIf="test_running||errorText">
 
-  <div *ngIf="matrix_loaded" #maintable>
-  <table >
+  <div *ngIf="matrix_loaded" >
+  <table #maintable>
     <tr *ngFor="let ma of matrix; let maindex=index">
       <td *ngFor="let m of ma; let mindex=index" >
         <img *ngIf="mindex!=0" src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"

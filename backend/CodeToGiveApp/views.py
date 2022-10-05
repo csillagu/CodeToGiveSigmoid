@@ -9,7 +9,6 @@ import json
 from dataclasses import dataclass, field
 from typing import Tuple, List, Dict, Sequence
 
-
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -17,12 +16,14 @@ import numpy as np
 
 from . import models
 from .models import ChairLamp, User, ToulousePieron, Bourdon
-from .pdf_email_service import PDFEmailSerive
+from .pdf_email_service import PDFEmailService
 
 
 @dataclass
 class IncrementalMetrics:
     quality_of_attention_total: float
+    revised_minutes: List[float]
+    errors_minutes: List[float]
     quality_of_attention_minutes: List[float]
     extent_of_attention: float
     performance: float = field(init=False)
@@ -73,7 +74,6 @@ def check_can_start(test_model, *args, **kwargs):
                 pass  # If the user is not in the test's table, then they can start the test
             return http_method(cls, request, *args, **kwargs)
 
-
         return wrapper
 
     return http_request_wrapper
@@ -95,7 +95,6 @@ def check_test_started(test_model, *args, **kwargs):
         return wrapper
 
     return http_request_wrapper
-
 
 
 class IncrementalMatrixTest:
@@ -121,12 +120,15 @@ class IncrementalMatrixTest:
     def _get_incremental_metrics(self, errors: List[int], revised: List[int]) -> IncrementalMetrics:
         quality_of_attention_total = round(sum(errors) / sum(revised) * 100, 2)
 
-        quality_of_attention_minutes = [round(errors[i] / revised[i] * 100, 2) if revised[i] != 0 else 0 for i in range(len(revised))]
+        quality_of_attention_minutes = [round(errors[i] / revised[i] * 100, 2) if revised[i] != 0 else 0 for i in
+                                        range(len(revised))]
         extent_of_attention = max(revised) - min(revised)
 
         result = IncrementalMetrics(quality_of_attention_total=quality_of_attention_total,
                                     quality_of_attention_minutes=quality_of_attention_minutes
-                                    , extent_of_attention=extent_of_attention)
+                                    , extent_of_attention=extent_of_attention,
+                                    errors_minutes=errors,
+                                    revised_minutes=revised)
 
         return result
 
@@ -151,7 +153,8 @@ class IncrementalMatrixTest:
             error = [idx for idx in circled_indices if idx not in correct_indices + ignored_indices] + \
                     [idx for idx in correct_indices if idx not in circled_indices + ignored_indices]
             if len(diff_from_previous_min) != 0:
-                revised.append((max(diff_from_previous_min) if diff_from_previous_min != [] else 0) - (max(prev_min) if prev_min != [] else 0))
+                revised.append((max(diff_from_previous_min) if diff_from_previous_min != [] else 0) - (
+                    max(prev_min) if prev_min != [] else 0))
             else:
                 revised.append(0)
             errors.append(len(error))
@@ -166,7 +169,7 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
         APIView.__init__(self)
         IncrementalMatrixTest.__init__(self, width=19, height=21, n_classes=18)
 
-    #@check_can_start(test_model=ChairLamp)
+    # @check_can_start(test_model=ChairLamp)
     def get(self, request: Request, _format=None):
         user_id = request.path.split('/')[-1]
 
@@ -176,11 +179,10 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
         ChairLamp(user_id, correct_indices).save()
         return Response(data={'matrix': random_matrix, "correct_indices": self.correct_picture_indices}, status=200)
 
-    #@check_test_started(test_model=ChairLamp)
+    # @check_test_started(test_model=ChairLamp)
     def post(self, request: Request, format=None):
         """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string" ,"image" : bytes}"""
         body = json.loads(request.body)
-        PDFEmailSerive().send_pdf(None, body['image'])
         user_id = request.path.split('/')[-1]
         chair_lamp_record = ChairLamp.objects.get(user_hash=user_id)
         marked_indices_per_minute = body['circled']
@@ -203,6 +205,7 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
         chair_lamp_record.correct_indices = None
         chair_lamp_record.save()
 
+        PDFEmailService().send_chairlamp_results(chair_lamp_record, body['image'])
 
         return Response(status=204)
 
@@ -214,7 +217,7 @@ class ToulousePieronEndpoint(APIView, IncrementalMatrixTest):
         APIView.__init__(self)
         IncrementalMatrixTest.__init__(self, width=20, height=20, n_classes=360 // 45)
 
-    #@check_can_start(test_model=ToulousePieron)
+    # @check_can_start(test_model=ToulousePieron)
     def get(self, request: Request, _format=None):
         user_id = request.path.split('/')[-1]
 
@@ -224,7 +227,7 @@ class ToulousePieronEndpoint(APIView, IncrementalMatrixTest):
         ToulousePieron(user_id, correct_indices).save()
         return Response(data={'matrix': random_matrix}, status=200)
 
-    #@check_test_started(test_model=ToulousePieron)
+    # @check_test_started(test_model=ToulousePieron)
     def post(self, request: Request, format=None):
         """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string" ,"image" : bytes}"""
 
@@ -248,9 +251,10 @@ class ToulousePieronEndpoint(APIView, IncrementalMatrixTest):
         errors = sum(errors)
         revised = sum(revised)
 
-        pieron_record.results = {"accuracy": (revised - errors) / revised * 100, "finished" : body['finished']}
+        pieron_record.results = {"accuracy": (revised - errors) / revised * 100, "finished": body['finished']}
         pieron_record.correct_indices = None
         pieron_record.save()
+        PDFEmailService().send_chairlamp_results(pieron_record, body['image'])
 
         return Response(status=204)
 
@@ -261,7 +265,7 @@ class BourdonEndpoint(APIView, IncrementalMatrixTest):
         APIView.__init__(self)
         IncrementalMatrixTest.__init__(self, width=40, height=40, n_classes=26)
 
-    #@check_can_start(test_model=Bourdon)
+    # @check_can_start(test_model=Bourdon)
     def get(self, request: Request, _format=None):
         user_id = request.path.split('/')[-1]
 
@@ -278,7 +282,7 @@ class BourdonEndpoint(APIView, IncrementalMatrixTest):
         Bourdon(user_id, correct_indices).save()
         return Response(data={'matrix': random_matrix}, status=200)
 
-    #@check_test_started(test_model=Bourdon)
+    # @check_test_started(test_model=Bourdon)
     def post(self, request: Request, format=None):
         """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string" ,"image" : bytes}"""
 
@@ -307,4 +311,5 @@ class BourdonEndpoint(APIView, IncrementalMatrixTest):
         burdon_record.results = metrics
         burdon_record.correct_indices = None
         burdon_record.save()
+        PDFEmailService().send_chairlamp_results(burdon_record, body['image'])
         return Response(status=204)
