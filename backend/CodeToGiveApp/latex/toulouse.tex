@@ -1,0 +1,96 @@
+\documentclass[12pt,a4paper]{article}
+%
+% AUTHOR: Prof. RUI SANTOS CRUZ
+%
+\usepackage{helvet} 
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{a4wide}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SELECT ONE OF THE FOLLOWING PACKAGES FOR THE LANGUAGE 
+\usepackage[english]{babel}
+% \usepackage[portuges]{babel}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage[absolute]{textpos}
+\usepackage{tabularx} 
+\usepackage{tabulary}                 
+\usepackage{fancyhdr}
+\usepackage[table]{xcolor}
+\pagestyle{fancy}
+\headsep=50pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PLEASE FILL THE ADEQUATE DATA IN THE TABLE REPLACING
+% THE VALUES EXEMPLIFIED
+\lhead{}
+\fancyhead[C]{\begin{tabularx}{1.0\textwidth}{|l|X|l|l|}
+\hline 
+% In the following line change Course Name: PPIII, PPB
+\textbf{EVALUATION OF TOULOUSE-PIÉRON TEST} & \textbf{Date:}   \today \\ 
+\hline
+% In the following line insert your Name and IST ID
+\textbf{Name} & @Name \\ 
+\hline
+% In the following line insert the Activity CODE and Title (abridged)
+%\textbf{WP n.} (99) & (Subject) & \textbf{Group:} & (99) \\
+\textbf{Email} & @Email   \\ 
+\hline
+\end{tabularx}}
+\rhead{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DO NOT CHANGE THIS BLOCK
+\begin{document}
+\textblockorigin{-18pt}{-2pt}
+\begin{textblock*}{10cm}(2cm,1cm)
+\includegraphics[width=1.5cm]{logo.png}
+\end{textblock*}
+
+
+%\section*{INSTRUCTIONS}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% YOUR TEXT STARTS HERE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+\section*{}
+\begin{table}[]
+\begin{tabular}{lllll}
+\cline{1-2}
+\multicolumn{1}{|l|}{Name} & \multicolumn{1}{l|}{Value} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{Result}  & \multicolumn{1}{l|}{@res} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{Revised images}  & \multicolumn{1}{l|}{@rev} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{Wrongly selected images}  & \multicolumn{1}{l|}{@wsel} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{Missed images}  & \multicolumn{1}{l|}{@miss} &  &  \\ \cline{1-2}
+
+                       &                       &                       &  & 
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DO NOT CHANGE THIS BLOCK 
+
+\textblockorigin{-18pt}{-2pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Filled test}
+
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale=0.4]{kitoltott.png}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% YOUR TEXT ENDS HERE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\end{document}                             % The required last line
