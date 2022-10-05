@@ -224,6 +224,7 @@ export class TestTableComponent implements OnDestroy, OnInit {
   }
 
   createTestData(): TestData | null {
+    this.menu.endpoint = this.startservice.endpoint
     switch (this.startservice.endpoint) {
       case "chairlamp":
         return new TestData(this.startservice.endpoint, "",
