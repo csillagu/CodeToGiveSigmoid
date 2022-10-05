@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Config, TestData} from "../config/config.service";
 import {Subscription} from "rxjs";
 import {timer} from "rxjs";
@@ -41,7 +41,7 @@ export class TestTableComponent implements OnDestroy, OnInit {
   @ViewChild('canvas', {static: true})
   canvas!: ElementRef;
 
-  capturedImage:any
+  capturedImage: any
 
   private ctx!: CanvasRenderingContext2D;
 
@@ -87,37 +87,26 @@ export class TestTableComponent implements OnDestroy, OnInit {
   submit() {
 
     this.results.push(this.results_row)
-    console.log(this.results)
+
     this.timer?.unsubscribe()
-    try {
-        html2canvas(this.maintable.nativeElement).then((canvas) => {
-          this.capturedImage = canvas.toDataURL();//test
 
-          canvas.toBlob((blob) => {
-            if (blob) {
-              console.log(this.capturedImage.name)
-              let file = new File([blob], this.startservice.endpoint+'_'+this.startservice.uid+'.png');
-              const fdata = new FormData();
-              fdata.append('image', file, 'asdasd');
-              fdata.append('circled',this.results.toString())
-              fdata.append('finished', this.time.toString())
-              console.log(fdata)
-              this.http_sub?.push(this.http.post<string>('https://faaea1e6-70bf-4859-8fa1-f9f6984102ad.mock.pstmn.io/' + this.startservice.endpoint +
-                '/' + this.startservice.uid,
-                fdata, {observe: "response"}).subscribe(
-                (data) => this.processPostResponse(data),
-                error => {
-                  this.errorText = error
-                }))
-            }
-          });
-     })
+    html2canvas(this.maintable.nativeElement).then((canvas) => {
+      this.capturedImage = canvas.toDataURL('image/jpeg');//test
+      this.http_sub?.push(
+        this.http.post<string>('http://127.0.0.1:8000/' + this.startservice.endpoint + '/' + this.startservice.uid,
+          {
+            image: this.capturedImage,
+            circled: this.results,
+            finished: this.time
+          },
+          {observe: "response"})
+          .subscribe((data) => this.processPostResponse(data),
+            error => {
+              this.errorText = error
+            })
+      );
 
-    } catch (e) {
-      this.matrix_loaded = false
-      this.errorText = "HOGY KELL EXCEPTIONBOL STRINGET KISZEDNI????"
-    }
-
+    });
   }
 
   private processPostResponse(data: HttpResponse<string>) {
@@ -134,7 +123,12 @@ export class TestTableComponent implements OnDestroy, OnInit {
     }
   }
 
-  onImageClick(col: number, row: number) {
+  onImageClick(col
+                 :
+                 number, row
+                 :
+                 number
+  ) {
 
     this.cursor = this.row_length * row + col
     //elmenti, hogy be van karikázva:
@@ -154,12 +148,17 @@ export class TestTableComponent implements OnDestroy, OnInit {
 
 
   @HostListener('window:beforeunload')
-  confirmLeavingPageBeforeSaving(): boolean {
+  confirmLeavingPageBeforeSaving()
+    :
+    boolean {
     return !this.test_running;
   }
 
   @HostListener('window:keydown', ['$event'])
-  handleKeyEvent(event: KeyboardEvent) {
+  handleKeyEvent(event
+                   :
+                   KeyboardEvent
+  ) {
     let col_length = this.matrix.length
     let max_index = col_length * this.row_length
     switch (event.code) {
@@ -191,15 +190,21 @@ export class TestTableComponent implements OnDestroy, OnInit {
     console.log(event);
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy()
+    :
+    void {
     console.log("OnDestroy")
-    for (let httpSubElement of this.http_sub) {
+    for (let httpSubElement of this.http_sub
+      ) {
       httpSubElement.unsubscribe()
     }
     this.timer?.unsubscribe()
   }
 
-  getDisplayTimer(time: number) {
+  getDisplayTimer(time
+                    :
+                    number
+  ) {
     const minutes = '' + Math.floor(time % 3600 / 60);
     const seconds = '0' + Math.floor(time % 3600 % 60);
     return minutes.slice(-2, -1) + minutes.slice(-1) + ":" +
@@ -223,7 +228,9 @@ export class TestTableComponent implements OnDestroy, OnInit {
     });
   }
 
-  createTestData(): TestData | null {
+  createTestData()
+    :
+    TestData | null {
     this.menu.endpoint = this.startservice.endpoint
     switch (this.startservice.endpoint) {
       case "chairlamp":
@@ -238,6 +245,7 @@ export class TestTableComponent implements OnDestroy, OnInit {
     }
     return null
   }
+
   cpImg() {
 
   }

@@ -1,12 +1,14 @@
+import base64
 from functools import wraps
 
 from django.shortcuts import render
-
+from django import forms
 # Create your views here.
 import dataclasses
 import json
 from dataclasses import dataclass, field
 from typing import Tuple, List, Dict, Sequence
+
 
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -15,6 +17,7 @@ import numpy as np
 
 from . import models
 from .models import ChairLamp, User, ToulousePieron, Bourdon
+from .pdf_email_service import PDFEmailSerive
 
 
 @dataclass
@@ -175,10 +178,9 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
 
     #@check_test_started(test_model=ChairLamp)
     def post(self, request: Request, format=None):
-        """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string"}"""
-
+        """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string" ,"image" : bytes}"""
         body = json.loads(request.body)
-
+        PDFEmailSerive().send_pdf(None, body['image'])
         user_id = request.path.split('/')[-1]
         chair_lamp_record = ChairLamp.objects.get(user_hash=user_id)
         marked_indices_per_minute = body['circled']
@@ -200,6 +202,8 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
         chair_lamp_record.results = metrics
         chair_lamp_record.correct_indices = None
         chair_lamp_record.save()
+
+
         return Response(status=204)
 
 
@@ -222,7 +226,7 @@ class ToulousePieronEndpoint(APIView, IncrementalMatrixTest):
 
     #@check_test_started(test_model=ToulousePieron)
     def post(self, request: Request, format=None):
-        """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string"}"""
+        """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string" ,"image" : bytes}"""
 
         user_id = request.path.split('/')[-1]
         body = json.loads(request.body)
@@ -276,7 +280,7 @@ class BourdonEndpoint(APIView, IncrementalMatrixTest):
 
     #@check_test_started(test_model=Bourdon)
     def post(self, request: Request, format=None):
-        """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string"}"""
+        """{"circled" : [[0,2], [0,2,4,9,10], [0,2,4,9,10,15]],"finished_at":"date_string" ,"image" : bytes}"""
 
         user_id = request.path.split('/')[-1]
         body = json.loads(request.body)
