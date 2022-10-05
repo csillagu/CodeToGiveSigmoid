@@ -7,6 +7,7 @@ import { TmpButtonComponent } from './tmp-button/tmp-button.component';
 import {HttpClientModule} from "@angular/common/http";
 
 import { LeftMenuComponent } from './left-menu/left-menu.component';
+import { ContrastSwitchComponent } from './contrast-switch/contrast-switch.component';
 import {MenuService} from "./comm/MenuService";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {TestTableComponent} from "./test-table/test-table.component";
@@ -20,6 +21,7 @@ import {RouterModule} from "@angular/router";
     TmpButtonComponent,
     TestTableComponent,
     LeftMenuComponent,
+    ContrastSwitchComponent,
   ],
   imports: [
     BrowserModule,

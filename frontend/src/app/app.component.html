@@ -15,13 +15,7 @@
   </div>
   <div fxFlex="33%" fxLayoutAlign="center center" fxLayout="column">
 
-    <div fxLayoutAlign="center center" fxLayout="row">
-      <h2 class="high_contrast_text" i18n>Contrast</h2>
-      <label class="switch">
-        <input class = "high_contrast_toggle" type="checkbox">
-        <span class="slider round"></span>
-      </label>
-    </div>
+    <contrast-switch></contrast-switch>
 
     <div fxLayout="row" fxLayoutGap="20px" id="changeLangDiv">
       <img src="./assets/languages/hun.png" alt="hungarian" i18n-alt class="language_img" (click)="changeLang('hu')">
