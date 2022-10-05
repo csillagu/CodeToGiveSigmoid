@@ -5,10 +5,14 @@
 
 }
 .test_image_first_toulousepieron{
-  background: rebeccapurple;
+
 }
 .test_data_disabled{
   background: darkred;
+}
+
+.test_data_disabled_dark{
+  background: #f1d484;
 }
 .selected{
   border: 3px saddlebrown dashed;
@@ -24,4 +28,15 @@ img{
 }
 table{
   /*cursor: url(src/assets/tests/toulousepieron/symbols/0.png), auto;*/
+}
+
+
+button {
+  font-size: 130%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  width: 25%;
+  height: 50%;
+  border: solid white 3px;
 }
