@@ -26,7 +26,7 @@
 
 <div *ngIf="test_started && !service.finished" fxLayout="row">
   <div fxFlex="25%">
-      <app-left-menu></app-left-menu>
+      <app-left-menu fxFlex="100%"></app-left-menu>
   </div>
   <div fxFlex="50%" fxLayoutAlign="center center">
     <app-test-table></app-test-table>
@@ -34,6 +34,7 @@
   <div fxFlex="25%" fxLayoutAlign="center center">
   </div>
 </div>
+
 <div *ngIf=!test_started>
   <div fxLayout="row">
       <div fxFlex="15%"></div>
@@ -95,7 +96,7 @@
   <a href="http://localhost:4200/bourdon/b388f8f2d66022828a5c0b48c17696cd">Bourdon</a><br>
 </div>
 <div *ngIf="service.finished">
-<div fxLayout="row">
+<div fxLayout="row" [class]="contrastMode.contrastOn?'contrast':''">
   <div fxFlex="33%"></div>
   <div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
         <h1 style = "font-size: 40px; padding-top: 30px" i18n>Thank you for filling our test</h1>
