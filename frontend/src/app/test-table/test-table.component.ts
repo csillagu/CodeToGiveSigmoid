@@ -26,6 +26,7 @@ export class TestTableComponent implements OnDestroy, OnInit {
   test_running = false
   timerDisplay = ""
   time = 0
+  cooldowntime =50
 
   timer: Subscription | undefined
   http_sub: Array<Subscription> = []
@@ -36,15 +37,10 @@ export class TestTableComponent implements OnDestroy, OnInit {
   @ViewChild('maintable', {static: false})
   maintable!: ElementRef;
 
-  @ViewChild('dl', {static: true})
-  dl!: ElementRef;
-
   @ViewChild('canvas', {static: true})
   canvas!: ElementRef;
 
   capturedImage: any
-
-  private ctx!: CanvasRenderingContext2D;
 
   constructor(private http: HttpClient, private menu: MenuService, private startservice: StartScreenService, public contrastMode : ContrastMode) {
     this.testdata = this.createTestData()!
@@ -52,7 +48,6 @@ export class TestTableComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    //this.ctx = this.canvas.nativeElement.getContext('2d');
   }
 
 
@@ -84,11 +79,11 @@ export class TestTableComponent implements OnDestroy, OnInit {
   }
 
   submit() {
-
-    this.results.push(this.results_row)
+    if(this.results.length<5) {
+      this.results.push(this.results_row)
+    }
 
     this.timer?.unsubscribe()
-
     html2canvas(this.maintable.nativeElement).then((canvas) => {
       this.capturedImage = canvas.toDataURL('image/jpeg');//test
       this.http_sub?.push(
@@ -104,7 +99,6 @@ export class TestTableComponent implements OnDestroy, OnInit {
               this.errorText = error
             })
       );
-
     });
   }
 
@@ -122,13 +116,7 @@ export class TestTableComponent implements OnDestroy, OnInit {
     }
   }
 
-  onImageClick(col
-                 :
-                 number, row
-                 :
-                 number
-  ) {
-
+  onImageClick(col:number, row:number) {
     this.cursor = this.row_length * row + col
     //elmenti, hogy be van karikázva:
     if ((this.results_row.length == 0 || this.row_length * row + col > this.max_field) && (this.testdata.firstCheckable || col != 0)) {
@@ -136,7 +124,6 @@ export class TestTableComponent implements OnDestroy, OnInit {
       this.results_row.push(this.max_field)
       //konkreét karika:
       this.setCircled(row, col);
-      console.log(this.results)
     }
   }
 
@@ -147,17 +134,12 @@ export class TestTableComponent implements OnDestroy, OnInit {
 
 
   @HostListener('window:beforeunload')
-  confirmLeavingPageBeforeSaving()
-    :
-    boolean {
+  confirmLeavingPageBeforeSaving():boolean {
     return !this.test_running;
   }
 
   @HostListener('window:keydown', ['$event'])
-  handleKeyEvent(event
-                   :
-                   KeyboardEvent
-  ) {
+  handleKeyEvent(event:KeyboardEvent) {
     let col_length = this.matrix.length
     let max_index = col_length * this.row_length
     switch (event.code) {
@@ -178,7 +160,6 @@ export class TestTableComponent implements OnDestroy, OnInit {
           this.cursor -= this.row_length
         break
       case "Space":
-        console.log("Space")
         event.preventDefault();
         this.onImageClick(this.cursor % this.row_length, Math.floor(this.cursor / this.row_length))
         break
@@ -186,12 +167,10 @@ export class TestTableComponent implements OnDestroy, OnInit {
 
         break
     }
-    console.log(event);
+
   }
 
-  ngOnDestroy()
-    :
-    void {
+  ngOnDestroy():void {
     console.log("OnDestroy")
     for (let httpSubElement of this.http_sub
       ) {
@@ -200,36 +179,34 @@ export class TestTableComponent implements OnDestroy, OnInit {
     this.timer?.unsubscribe()
   }
 
-  getDisplayTimer(time
-                    :
-                    number
-  ) {
-    const minutes = '' + Math.floor(time % 3600 / 60);
-    const seconds = '0' + Math.floor(time % 3600 % 60);
+  getDisplayTimer(time:number) {
+
+    const minutes = '' +(Math.floor(time % 3600 / 60));
+    const seconds = '0' +(Math.floor(time % 3600 % 60));
     return minutes.slice(-2, -1) + minutes.slice(-1) + ":" +
       seconds.slice(-2, -1) + seconds.slice(-1)
 
   }
 
   startTimer() {
+    this.time=this.cooldowntime
     this.timer = timer(0, 1000).subscribe(ec => {
-
-      this.time++;
+      this.time--;
       this.timerDisplay = this.getDisplayTimer(this.time);
       this.menu.timeRunning = this.matrix_loaded
       this.menu.timeDisplay = this.timerDisplay
-      if (this.time == 30) {
-        this.submit()
-      }
-      if (this.time % 10 == 0) {
+
+      if (this.time % (Math.floor(this.cooldowntime/5)) == 0) {
         this.results.push([...this.results_row])
+        console.log(this.results)
+      }
+      if (this.time == 0) {
+        this.submit()
       }
     });
   }
 
-  createTestData()
-    :
-    TestData | null {
+  createTestData():TestData | null {
     this.menu.endpoint = this.startservice.endpoint
     switch (this.startservice.endpoint) {
       case "chairlamp":
@@ -243,9 +220,5 @@ export class TestTableComponent implements OnDestroy, OnInit {
           "png", "50", "50", "test_data_disabled", false, "selected")
     }
     return null
-  }
-
-  cpImg() {
-
   }
 }
