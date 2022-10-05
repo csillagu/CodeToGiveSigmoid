@@ -22,6 +22,7 @@
     "@angular/router": "^14.2.0",
     "@ngx-translate/core": "^14.0.0",
     "flex-layout": "^1.0.1",
+    "html2canvas": "^1.4.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
