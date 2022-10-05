@@ -15,5 +15,11 @@ export class ContrastSwitchComponent implements OnInit {
 
   contrastSwitch() {
     this.contrastMode.contrastOn = !this.contrastMode.contrastOn;
+
+    if(this.contrastMode.contrastOn) {
+      document.body.style.background = "black";
+    } else {
+      document.body.style.background = "white";
+    }
   }
 }
