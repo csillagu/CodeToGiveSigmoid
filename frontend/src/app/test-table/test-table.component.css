@@ -19,3 +19,6 @@ img{
   box-sizing: border-box;
   border-radius: 10%;
 }
+table{
+  /*cursor: url(src/assets/tests/toulousepieron/symbols/0.png), auto;*/
+}

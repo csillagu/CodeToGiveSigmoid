@@ -11,7 +11,6 @@ import {StartScreenService} from "../comm/StartScreenService";
   templateUrl: './test-table.component.html',
   styleUrls: ['./test-table.component.css'],
 })
-
 export class TestTableComponent implements OnDestroy {
   matrix:Array<Array<number>> =[]
   max_field=-1
@@ -22,7 +21,7 @@ export class TestTableComponent implements OnDestroy {
 
   row_length=0
   matrix_loaded:boolean =false
-  test_finished=false
+  test_running=false
   timerDisplay=""
   time=0
 
@@ -33,17 +32,20 @@ export class TestTableComponent implements OnDestroy {
   testdata:TestData
 
   constructor(private http : HttpClient, private menu:MenuService, private startservice: StartScreenService) {
-    this.testdata=this.createTestData()!
+    this.testdata = this.createTestData()!
     this.onLoadClick()
   }
 
+
   onLoadClick(){
     try {
-      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/'+this.startservice.endpoint+
-        '/'+this.startservice.uid,
+      this.http_sub?.push(this.http.get<Config>('http://127.0.0.1:8000/' + this.startservice.endpoint +
+        '/' + this.startservice.uid,
         {responseType: 'json', observe: "response", headers: {}})
         .subscribe(data => this.processGetResponse(data),
-        error=>{this.errorText=error}))
+          error => {
+            this.errorText = error
+          }))
     }
     catch (e) {
       console.log("error")
@@ -56,6 +58,7 @@ export class TestTableComponent implements OnDestroy {
       this.matrix = data.body!.matrix
       this.row_length=this.matrix[0].length
       this.matrix_loaded = true
+      this.test_running=true
       this.startTimer()
     } else {
       this.errorText = data.statusText
@@ -82,7 +85,7 @@ export class TestTableComponent implements OnDestroy {
     console.log(data.status)
     this.matrix_loaded = false
     if (data.status == 204) {
-      this.test_finished = true
+      this.test_running = false
       this.startservice.finished=true
       console.log(this.results)
     } else if (data.status == 400) {
@@ -110,7 +113,10 @@ export class TestTableComponent implements OnDestroy {
   }
 
 
-
+@HostListener('window:beforeunload')
+confirmLeavingPageBeforeSaving(): boolean {
+  return !this.test_running;
+}
   @HostListener('window:keydown', ['$event'])
   handleKeyEvent(event: KeyboardEvent) {
     let col_length=this.matrix.length
