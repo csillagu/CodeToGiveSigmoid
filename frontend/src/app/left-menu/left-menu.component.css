@@ -3,3 +3,9 @@
   list-style-type: "●";
   padding-top: 20%;
 }
+
+.contrast{
+  filter: invert();
+}
+
+

@@ -1,28 +1,28 @@
 <div>
-<ul>
-  <li class="left_menu_li" *ngIf="menuservice.timeRunning" i18n><b>Time:</b>{{menuservice.timeDisplay}}</li>
-  <li class="left_menu_li" *ngIf="menuservice.endpoint == 'chairlamp'" i18n>
+
+  <div class="left_menu_li" *ngIf="menuservice.timeRunning" i18n><b>Time:</b>{{menuservice.timeDisplay}}</div>
+  <div class="left_menu_li" *ngIf="menuservice.endpoint == 'chairlamp'" i18n>
     <b>Task:</b><br/>
     Mark the chairs and lamps:<br/>
-    <img src="./assets/tests/chairlamp/symbols/0.svg" alt="first target" i18n-alt style="width: 50px;height: 50px">
-    <img src="./assets/tests/chairlamp/symbols/1.svg" alt="second target" i18n-alt style="width: 50px;height: 50px">
-  </li>
-  <li class="left_menu_li" *ngIf="menuservice.endpoint == 'toulousepieron'" i18n>
+    <img [class]="contrastMode.contrastOn?'contrast':''" src="./assets/tests/chairlamp/symbols/0.svg" alt="first target" i18n-alt style="width: 50px;height: 50px">
+    <img [class]="contrastMode.contrastOn?'contrast':''" src="./assets/tests/chairlamp/symbols/1.svg" alt="second target" i18n-alt style="width: 50px;height: 50px">
+  </div>
+  <div class="left_menu_li" *ngIf="menuservice.endpoint == 'toulousepieron'" i18n>
     <b>Task:</b><br/>
     Mark the following shapes:<br/>
-    <img src="./assets/tests/toulousepieron/symbols/1.png" alt="first target" i18n-alt>
-    <img src="./assets/tests/toulousepieron/symbols/4.png" alt="second target" i18n-alt>
-    <img src="./assets/tests/toulousepieron/symbols/5.png" alt="third target" i18n-alt>
-    <img src="./assets/tests/toulousepieron/symbols/6.png" alt="fourth target" i18n-alt>
-  </li>
-  <li class="left_menu_li" *ngIf="menuservice.endpoint == 'chairlamp'" i18n>
+    <img [class]="contrastMode.contrastOn?'contrast':''" src="./assets/tests/toulousepieron/symbols/1.png" alt="first target" i18n-alt>
+    <img [class]="contrastMode.contrastOn?'contrast':''" src="./assets/tests/toulousepieron/symbols/4.png" alt="second target" i18n-alt>
+    <img [class]="contrastMode.contrastOn?'contrast':''" src="./assets/tests/toulousepieron/symbols/5.png" alt="third target" i18n-alt>
+    <img [class]="contrastMode.contrastOn?'contrast':''" src="./assets/tests/toulousepieron/symbols/6.png" alt="fourth target" i18n-alt>
+  </div>
+  <div class="left_menu_li" *ngIf="menuservice.endpoint == 'chairlamp'" i18n>
     <b>Task:</b><br/>
     Mark the letters that are the same as the highlighted firsts in the respective rows<br/>
-  </li>
-  <li class="left_menu_li">
+  </div>
+  <div class="left_menu_li">
     <b>Keyboard Help:</b><br/>
     Use the arrows to navigate the grid<br>
     Press Space to mark the picture
-  </li>
-</ul>
+  </div>
+
 </div>
