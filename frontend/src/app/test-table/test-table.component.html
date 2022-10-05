@@ -8,13 +8,19 @@
     <table>
       <tr *ngFor="let ma of matrix; let maindex=index">
         <td *ngFor="let m of ma; let mindex=index">
-          <img *ngIf="mindex!=0" src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"
-               height="{{testdata.height}}" width="{{testdata.width}}" (click)="onImageClick(mindex, maindex)"
-               class="test_image_{{testdata.type}} {{(row_length*maindex+mindex<max_field)?testdata.disbledClass:''}}
-              {{(row_length*maindex+mindex==cursor)?testdata.selectedClass:''}}  {{contrastMode.contrastOn?'contrast':''}}"/>
+          <img *ngIf="mindex!=0"
+               src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"
+               height="{{testdata.height}}" width="{{testdata.width}}"
+               (click)="onImageClick(mindex, maindex)"
+               class="test_image_{{testdata.type}}
+                    {{(row_length*maindex+mindex<max_field)?testdata.disbledClass+(contrastMode.contrastOn?'_dark':''):''}}
+                    {{(row_length*maindex+mindex==cursor)?testdata.selectedClass:''}}
+                    {{contrastMode.contrastOn?'contrast':''}}"/>
           <img *ngIf="mindex==0" src="/assets/tests/{{testdata.type}}/symbols/{{m}}.{{testdata.ext}}"
-               class="test_image_first_{{testdata.type}} {{(row_length*maindex+mindex<max_field)&&testdata.firstCheckable?testdata.disbledClass:''}}
-              {{(row_length*maindex+mindex==cursor)&&testdata.firstCheckable?testdata.selectedClass:''}} {{contrastMode.contrastOn?'contrast':''}}"
+               class="test_image_first_{{testdata.type}}
+                    {{(row_length*maindex+mindex<max_field)&&testdata.firstCheckable?testdata.disbledClass+(contrastMode.contrastOn?'_dark':''):''}}
+                    {{(row_length*maindex+mindex==cursor)&&testdata.firstCheckable?testdata.selectedClass:''}}
+                    {{contrastMode.contrastOn?'contrast':''}}"
                height="{{testdata.height}}" width="{{testdata.width}}" (click)="onImageClick(mindex, maindex)"/>
         </td>
       </tr>
