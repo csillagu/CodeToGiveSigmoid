@@ -1,6 +1,7 @@
 import {Component, NgModule} from '@angular/core';
 import {StartScreenService} from "./comm/StartScreenService";
 import {RouterModule, Routes} from "@angular/router";
+import {ContrastMode} from "./comm/ContrastMode";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   test_started = false;
   isError:boolean=false
   errorText:string=""
-  constructor(public service:StartScreenService) {
+  constructor(public service:StartScreenService, public contrastMode: ContrastMode) {
     let uid=window.location.href.split('/')[window.location.href.split('/').length-1]
     let endpoint=window.location.href.split('/')[window.location.href.split('/').length-2]
     if(uid=="") {

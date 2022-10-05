@@ -19,6 +19,9 @@ img{
   box-sizing: border-box;
   border-radius: 10%;
 }
+.contrast{
+  filter: invert();
+}
 table{
   /*cursor: url(src/assets/tests/toulousepieron/symbols/0.png), auto;*/
 }
