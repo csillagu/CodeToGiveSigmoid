@@ -30,9 +30,15 @@
   </div>
 </div>
 
-<div *ngIf="test_started && !service.finished">
-  <app-left-menu></app-left-menu>
-  <app-test-table></app-test-table>
+<div *ngIf="test_started && !service.finished" fxLayout="row">
+  <div fxFlex="25%">
+      <app-left-menu></app-left-menu>
+  </div>
+  <div fxFlex="50%" fxLayoutAlign="center center">
+    <app-test-table></app-test-table>
+  </div>
+  <div fxFlex="25%" fxLayoutAlign="center center">
+  </div>
 </div>
 <div *ngIf=!test_started>
   <div fxLayout="row">
