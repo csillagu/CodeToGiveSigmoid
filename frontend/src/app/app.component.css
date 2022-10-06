@@ -1,31 +1,34 @@
 
-.contrast{
+.contrast {
   background: black;
-  color:yellow;
+  color: yellow;
 }
 
-.instructions{
+
+.instructions {
   margin-top: 20px;
   font-size: 135%;
-  border-width:2px;
-  border-style:solid;
-  border-color:#444444;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #444444;
   border-radius: 20px 20px 20px 20px;
 
 }
-.list_item{
+
+.list_item {
   display: list-item;
   list-style-type: "●";
   padding-inline-start: 1ch;
   margin-top: 2%;
 }
 
-#title{
-   font-size: 300%
+#title {
+  font-size: 300%
 }
-.gif{
+
+.gif {
   margin-top: 150px;
-    box-sizing: border-box;
+  box-sizing: border-box;
 
   display: block;
   margin-left: auto;
@@ -33,42 +36,62 @@
   position: relative;
 }
 
-#gif_img{
-    top: 0;
-    bottom: 0;
-    margin: auto;
+#gif_img {
+  top: 0;
+  bottom: 0;
+  margin: auto;
   vertical-align: middle;
-    max-height: 100%;
-    max-width: 100%;
+  max-height: 100%;
+  max-width: 100%;
 
-    border-width:2px;
-    border-style:solid;
-    border-color:#444444;
-    border-radius: 20px 20px 20px 20px;
-    width: 400px;
-    height: 300px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #444444;
+  border-radius: 20px 20px 20px 20px;
+  width: 400px;
+  height: 300px;
 }
 
-#start_button{
-      font-size: 150%;
-    margin-top: 30px;
-    display: flex;
+#start_button {
+  font-size: 150%;
+  margin-top: 30px;
+  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 30px;
-          width: 40%;
-          height: 50%;
+  width: 40%;
+  height: 50%;
   border: solid white 3px;
 }
 
 
-
-.error_cont h1{
+.error_cont h1 {
   color: red;
-  }
+}
 
-.language_img{
+.language_img {
   width: 50px;
   height: auto;
 }
 
+.title {
+  color: white;
+  font-weight: bold;
+}
+
+.center {
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 850px) {
+  .center {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+}

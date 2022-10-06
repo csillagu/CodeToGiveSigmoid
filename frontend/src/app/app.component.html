@@ -6,106 +6,111 @@
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" *ngIf="!isError"
+     [class]="contrastMode.contrastOn?'contrast':''">
+  <div class="container-fluid">
+
+
+    <h1 class="title m-auto p-2 center">{{title}}</h1>
+
+    <div style="float:right;width:100%">
+      <select class="form-select d-flex" style="width: 110px;float:right" data-width="fit">
+        <option data-content='<span class="flag-icon flag-icon-us"></span> English'>English</option>
+        <option data-content='<span class="flag-icon flag-icon-mx"></span> Español'>Hungary</option>
+      </select>
+
+      <div class="d-flex" style="width: 110px;float:right">
+      </div>
+
+      <contrast-switch></contrast-switch>
+    </div>
+  </div>
+</nav>
+
 <div *ngIf="!isError" [class]="contrastMode.contrastOn?'contrast':''">
-<div fxLayout="row">
-  <div fxFlex="33%" fxLayoutAlign="center center">
-  </div>
-  <div fxFlex="33%" fxLayoutAlign="center center">
-    <h1 i18n>{{title}}</h1>
-  </div>
-  <div fxFlex="33%" fxLayoutAlign="center center" fxLayout="column">
+  <div *ngIf="test_started && !service.finished" class="container-fluid mt-5">
+    <div class="container">
+      <app-left-menu></app-left-menu>
+      <app-test-table></app-test-table>
+    </div>
 
-    <contrast-switch></contrast-switch>
+  </div>
 
-    <div fxLayout="row" fxLayoutGap="20px" id="changeLangDiv">
-      <img src="./assets/languages/hun.png" alt="hungarian" i18n-alt class="language_img" (click)="changeLang('hu')">
-      <img src="./assets/languages/eng.png" alt="english" i18n-alt class="language_img" (click)="changeLang('en')">
+  <div class="container" *ngIf=!test_started>
+    <div class="card  m-auto mt-5 p-3" style="max-width: 800px;">
+      <div class="row g-0">
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
+          <img src="http://i.stack.imgur.com/SBv4T.gif" width="100%" alt="Italian Trulli">
+        </div>
+
+        <div class="col-md-8">
+          <div class="card-body">
+            <ol class="list-group list-group-flush list-group-numbered">
+              <!-- CHAIRLAMP -->
+              <li class="list-group-item" *ngIf="service.endpoint =='chairlamp'">
+                You will see pictures of different kinds of objects in a matrix.
+                Your task is to find and <b>mark only the chair and lamps:</b>
+                <br/>
+                <img src="./assets/tests/chairlamp/symbols/0.svg" alt="first target" i18n-alt
+                     style="width: 50px;height: 50px">
+                <img src="./assets/tests/chairlamp/symbols/1.svg" alt="second target" i18n-alt
+                     style="width: 50px;height: 50px">
+              </li>
+              <!-- TOULOUSEPIERON -->
+              <li class="list-group-item" *ngIf="service.endpoint =='toulousepieron'">
+                You will see pictures of different shapes in a matrix. Your task is to find and mark only the ones
+                listed
+                here:<br/>
+                <img src="./assets/tests/toulousepieron/symbols/1.png" alt="first target" i18n-alt>
+                <img src="./assets/tests/toulousepieron/symbols/4.png" alt="second target" i18n-alt>
+                <img src="./assets/tests/toulousepieron/symbols/5.png" alt="third target" i18n-alt>
+                <img src="./assets/tests/toulousepieron/symbols/6.png" alt="fourth target" i18n-alt>
+              </li>
+              <!-- BOURDON -->
+              <li class="list-group-item" *ngIf="service.endpoint =='bourdon'">
+                You will see pictures of letters in a matrix.
+                Your task is to find and mark only the letters that are the
+                same as
+                the highlighted firsts in the respective rows.
+              </li>
+              <li class="list-group-item">
+                You will have <b>5 minutes</b> to complete this test but we record your progess every minute.
+              </li>
+              <li class="list-group-item">Once you are finished click the button on the bottom to submit your results.
+              </li>
+              <li class="list-group-item">Press the start button to begin your test. Good luck!</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="mt-2 col d-flex align-items-center justify-content-center">
+        <button (click)="start_test()" type="button" class="btn btn-primary m-2 btn-large">Start</button>
+      </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="test_started && !service.finished" fxLayout="row">
-  <div fxFlex="25%">
-      <app-left-menu fxFlex="100%"></app-left-menu>
-  </div>
-  <div fxFlex="50%" fxLayoutAlign="center center">
-    <app-test-table></app-test-table>
-  </div>
-  <div fxFlex="25%" fxLayoutAlign="center center">
-  </div>
-</div>
 
-<div *ngIf=!test_started>
-  <div fxLayout="row">
-      <div fxFlex="15%"></div>
-      <div fxFlex="40%" class="instructions">
-        <dl>
-          <dd class="list_item"  *ngIf="service.endpoint =='chairlamp'" i18n>
-            You will see pictures of different kinds of objects in a matrix. Your task is to find and <b>
-            mark only the chair and lamps:</b><br/>
-            <img src="./assets/tests/chairlamp/symbols/0.svg" alt="first target" i18n-alt style="width: 50px;height: 50px">
-            <img src="./assets/tests/chairlamp/symbols/1.svg" alt="second target" i18n-alt style="width: 50px;height: 50px">
-          </dd>
-          <dd class="list_item" *ngIf="service.endpoint =='toulousepieron'" i18n>
-            You will see pictures of different shapes in a matrix. Your task is to find and mark only the ones listed here:<br/>
-            <img src="./assets/tests/toulousepieron/symbols/1.png" alt="first target" i18n-alt>
-            <img src="./assets/tests/toulousepieron/symbols/4.png" alt="second target" i18n-alt>
-            <img src="./assets/tests/toulousepieron/symbols/5.png" alt="third target" i18n-alt>
-            <img src="./assets/tests/toulousepieron/symbols/6.png" alt="fourth target" i18n-alt>
-          </dd>
-          <dd class="list_item" *ngIf="service.endpoint =='bourdon'" i18n>
-            You will see pictures of letters in a matrix. Your task is to find and mark only the letters that are the same as
-            the highlighted firsts in the respective rows.
-          </dd>
-          <dd class="list_item" i18n>
-            You will have <b>5 minutes</b> to complete this test but we record your progess every minute.
-          </dd>
-          <dd class="list_item" i18n>
-            Once you are finished click the button on the bottom to submit your results.
-          </dd>
-          <dd class="list_item" i18n>
-            Press the start button to begin your test. Good luck!
-          </dd>
-        </dl>
-      </div>
-
-    <div fxFlex="15%" class="gif" style="display: inline-block;height: 100%;vertical-align: middle;position: relative" >
-        <img id="gif_img" src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves" i18n-alt>
-      </div>
-      <div fxFlex="25%"></div>
-  </div>
-
-  <div fxLayout="row">
-  <div fxFlex="33%"></div>
-  <div fxFlex="33%" fxLayoutAlign="center center">
-    <button id="start_button" (click)="start_test()" i18n>Start</button>
-  </div>
-  <div fxFlex="33%">
-  </div>
-</div>
-
-
-</div>
-</div>
 <div *ngIf="isError" class="error_cont">
   <h1>Error</h1>
   <p>{{errorText}}</p>
-  <h3 >Test links: <br></h3>
+  <h3>Test links: <br></h3>
   <a href="http://localhost:4200/chairlamp/b388f8f2d66022828a5c0b48c17696cd">Chairlamp</a><br>
   <a href="http://localhost:4200/toulousepieron/b388f8f2d66022828a5c0b48c17696cd">Toulousepieron</a><br>
   <a href="http://localhost:4200/bourdon/b388f8f2d66022828a5c0b48c17696cd">Bourdon</a><br>
 </div>
+
 <div *ngIf="service.finished">
-<div fxLayout="row" [class]="contrastMode.contrastOn?'contrast':''">
-  <div fxFlex="33%"></div>
-  <div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
-        <h1 style = "font-size: 40px; padding-top: 30px" i18n>Thank you for filling our test</h1>
-        <br/>
-        <h2 style = "font-size: 30px; padding-top: 20px" i18n>We will contact you with the results shortly!</h2>
-        <br/>
-        <h2 style = "font-size: 20px; padding-top: 10px" i18n><i>by Salva Vita</i></h2>
+  <div fxLayout="row" [class]="contrastMode.contrastOn?'contrast':''">
+    <div fxFlex="33%"></div>
+    <div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center">
+      <h1 style="font-size: 40px; padding-top: 30px" i18n>Thank you for filling our test</h1>
+      <br/>
+      <h2 style="font-size: 30px; padding-top: 20px" i18n>We will contact you with the results shortly!</h2>
+      <br/>
+      <h2 style="font-size: 20px; padding-top: 10px" i18n><i>by Salva Vita</i></h2>
+    </div>
+    <div fxFlex="33%" fxLayoutAlign="center center">
+    </div>
   </div>
-  <div fxFlex="33%" fxLayoutAlign="center center">
-  </div>
-</div>
 </div>

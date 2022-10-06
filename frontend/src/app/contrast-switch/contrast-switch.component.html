@@ -1,7 +1,4 @@
-<div fxLayoutAlign="center center" fxLayout="row">
-  <h2 class="high_contrast_text" [class]="contrastMode.contrastOn?'contrast':''" i18n>Contrast</h2>
-  <label class="switch">
-    <input class = "high_contrast_toggle" type="checkbox" (click)="contrastSwitch()">
-    <span class="slider round"></span>
-  </label>
-</div>
+<select (change)="contrastSwitch()" class="form-select d-flex" style="width: 150px;float:right" data-width="fit"  [class]="contrastMode.contrastOn?'contrast':''">
+  <option data-content='<span class="flag-icon flag-icon-mx"></span> Español'>Contrast: OFF</option>
+  <option data-content='<span class="flag-icon flag-icon-us"></span> English'>Contrast: ON</option>
+</select>
