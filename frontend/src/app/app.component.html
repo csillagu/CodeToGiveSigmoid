@@ -16,7 +16,6 @@
   <div fxFlex="33%" fxLayoutAlign="center center" fxLayout="column">
 
     <contrast-switch></contrast-switch>
-
     <div fxLayout="row" fxLayoutGap="20px" id="changeLangDiv">
       <img src="./assets/languages/hun.png" alt="hungarian" i18n-alt class="language_img" (click)="changeLang('hu')">
       <img src="./assets/languages/eng.png" alt="english" i18n-alt class="language_img" (click)="changeLang('en')">
@@ -25,20 +24,20 @@
 </div>
 
 <div *ngIf="test_started && !service.finished" fxLayout="row">
-  <div fxFlex="25%">
+  <div fxFlex="15%">
       <app-left-menu fxFlex="100%"></app-left-menu>
   </div>
-  <div fxFlex="50%" fxLayoutAlign="center center">
+  <div fxFlex="75%" fxLayoutAlign="center center">
     <app-test-table></app-test-table>
   </div>
-  <div fxFlex="25%" fxLayoutAlign="center center">
+  <div fxFlex="0%" fxLayoutAlign="center center">
   </div>
 </div>
 
 <div *ngIf=!test_started>
   <div fxLayout="row">
-      <div fxFlex="15%"></div>
-      <div fxFlex="40%" class="instructions">
+      <div fxFlex="20%"></div>
+      <div fxFlex="40%" class="instructions" >
         <dl>
           <dd class="list_item"  *ngIf="service.endpoint =='chairlamp'" i18n>
             You will see pictures of different kinds of objects in a matrix. Your task is to find and <b>
@@ -69,10 +68,10 @@
         </dl>
       </div>
 
-    <div fxFlex="15%" class="gif" style="display: inline-block;height: 100%;vertical-align: middle;position: relative" >
-        <img id="gif_img" src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves" i18n-alt>
+    <div fxFlex="30%" class="gif" style="position: absolute; top: 11%;right: 25%; float: left" >
+        <img id="gif_img" src="/assets/img/logo.png" alt="Salva Vita" i18n-alt>
       </div>
-      <div fxFlex="25%"></div>
+      <div fxFlex="0%" style="position: absolute; right: 0"></div>
   </div>
 
   <div fxLayout="row">

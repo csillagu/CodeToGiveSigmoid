@@ -4,10 +4,10 @@ import io
 import json
 import os
 import subprocess
+import threading
+import time
 from copy import copy
 from io import BytesIO
-from docx2pdf import convert
-import docx
 
 from .models import ChairLamp, User
 
@@ -55,11 +55,13 @@ class PDFEmailService:
         except:
             print('Something went wrong during email sending...')
 
-    def generate_latex(self, content):
-        with open('CodeToGiveApp/data/template.tex', 'w') as f:
+    def generate_latex(self, content, uid, uname):
+        with open('CodeToGiveApp/data/temp/template.tex', 'w') as f:
             f.write(content)
-        subprocess.call('pdflatex CodeToGiveApp/data/template.tex')
-
+        print(os.getcwd())
+        pdfname='CodeToGiveApp/data/out/'+str(time.time())
+        subprocess.call('pdflatex CodeToGiveApp/data/temp/template.tex -interaction nonstopmode -jobname='+pdfname)
+        self.send_email( pdfname+'.pdf', uid, uname)
 
         # parser = argparse.ArgumentParser()
         # parser.add_argument('-c', '--course')
@@ -72,6 +74,7 @@ class PDFEmailService:
         # cmd = ['pdflatex', '-interaction', 'nonstopmode', 'cover.tex']
         # proc = subprocess.Popen(cmd)
         # proc.communicate()
+
 
         # retcode = proc.returncode
         # if not retcode == 0:
@@ -88,9 +91,9 @@ class PDFEmailService:
         data = base64.b64decode(image)
         im = Image.open(BytesIO(data), formats=['jpeg'])
 
-        im.save('CodeToGiveApp/data/kitoltott.png')
+        im.save('CodeToGiveApp/data/temp/kitoltott.png')
 
-        latex_template_name = 'CodeToGiveApp/data/chairlamp.tex'
+        latex_template_name = 'CodeToGiveApp/latex/chairlamp2.tex'
 
         with open(latex_template_name) as f:
             content = f.read()
@@ -119,5 +122,14 @@ class PDFEmailService:
 
         content = content.replace('errors_minutes@total',str(sum_err))
         content = content.replace('revised_minutes@total',str(sum_rev))
+        username=User.objects.get(user_hash=chairlamp_record.user_hash).user_name
+        content=content.replace("@Name", username)
+        content=content.replace("@Email", "example-mail@ex.com")
+        coords = ""
+        for idx, att in enumerate(chairlamp_record.results['quality_of_attention_minutes']):
+            coords = coords + f'({idx + 1}, {att}) '
+        content = content.replace('coords', coords)
 
-        self.generate_latex(content)
+        x = threading.Thread(target=self.generate_latex, args=(content,chairlamp_record.user_hash,username )).start()
+        return
+
