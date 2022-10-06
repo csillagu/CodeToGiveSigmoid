@@ -54,8 +54,8 @@ li{
 }
 app-left-menu{
   float: left;
-  width: 9%;
-  margin-right: 7em;
+
+  margin-right: 4em;
 }
 th,td{
   padding: 0;
