@@ -55,10 +55,11 @@ class PDFEmailService:
         except:
             print('Something went wrong during email sending...')
 
-    def generate_latex(self,content):
+    def generate_latex(self, content):
         with open('CodeToGiveApp/data/template.tex', 'w') as f:
             f.write(content)
         subprocess.call('pdflatex CodeToGiveApp/data/template.tex')
+
 
         # parser = argparse.ArgumentParser()
         # parser.add_argument('-c', '--course')
@@ -67,8 +68,6 @@ class PDFEmailService:
         # parser.add_argument('-s', '--school', default='My U')
 
         # args = parser.parse_args()
-
-
 
         # cmd = ['pdflatex', '-interaction', 'nonstopmode', 'cover.tex']
         # proc = subprocess.Popen(cmd)
@@ -82,7 +81,6 @@ class PDFEmailService:
         # os.unlink('cover.tex')
         # os.unlink('cover.log')
 
-
     def send_chairlamp_results(self, chairlamp_record: ChairLamp, image_bytes: str):
 
         image = image_bytes.split(',')[1]
@@ -92,24 +90,34 @@ class PDFEmailService:
 
         im.save('CodeToGiveApp/data/kitoltott.png')
 
-        latex_template_name = 'CodeToGiveApp/data/chairlamp_template.txt'
+        latex_template_name = 'CodeToGiveApp/data/chairlamp.tex'
 
         with open(latex_template_name) as f:
             content = f.read()
 
         for metric in (
-        'quality_of_attention_total', 'quality_of_attention_minutes', 'extent_of_attention', 'performance', 'category',
-        'fluctuating_attention', 'desire_to_conform', 'fatigue'):
-            name = metric.replace(' ','_')
-            name = name+'0'
+                'quality_of_attention_total', 'quality_of_attention_minutes', 'extent_of_attention', 'performance',
+                'category',
+                'fluctuating_attention', 'desire_to_conform', 'fatigue'):
+            name = metric.replace(' ', '_')
+            name = name + '0'
             content = content.replace(name, str(chairlamp_record.results[metric]))
-
 
         errors = chairlamp_record.results['errors_minutes']
         revised = chairlamp_record.results['revised_minutes']
-
-        while(len(errors) >= 5):
+        sum_err = sum(errors)
+        sum_rev = sum(errors)
+        while (len(errors) <= 5):
             errors.append('-')
             revised.append('-')
+
+        for idx, value in enumerate(errors):
+            content = content.replace(f'errors_minutes@{idx}', str(value))
+
+        for idx, value in enumerate(revised):
+            content = content.replace(f'revised_minutes@{idx}', str(value))
+
+        content = content.replace('errors_minutes@total',str(sum_err))
+        content = content.replace('revised_minutes@total',str(sum_rev))
 
         self.generate_latex(content)
