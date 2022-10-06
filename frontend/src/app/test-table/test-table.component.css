@@ -8,14 +8,14 @@
 
 }
 .test_data_disabled{
-  background: darkred;
+  background: #2a7fc4;
 }
 
 .test_data_disabled_dark{
   background: #f1d484;
 }
 .selected{
-  border: 3px saddlebrown dashed;
+  border: 3px #ff0000 dashed;
    box-sizing: border-box;
 }
 img{

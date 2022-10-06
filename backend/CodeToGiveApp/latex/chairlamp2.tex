@@ -1,0 +1,120 @@
+%Exam Template for CNY
+%created by: Daniel Gómez
+\documentclass[letterpaper, 11pt]{article}
+
+\usepackage{hyperref}
+\usepackage{apacite}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\numberwithin{equation}{section}
+\usepackage{pgfplots}
+
+
+\usepackage{commath}
+\usepackage{multicol}%arguments for multiple columns
+\usepackage{calc} % beginning of arguments to get the long division
+\usepackage{tikz}%draw pictures
+\usetikzlibrary{calc,patterns,angles,quotes,arrows}
+\usepackage{tcolorbox}%begin of colored boxes
+\tcbuselibrary{theorems}%end of colored boxes}
+\newcommand{\longdivision}[2]{%begin arguments long division
+    \settowidth{\dividendlength}{#1}
+    \settowidth{\divisorlength}{#2}
+    \settoheight{\dividendheight}{#1}
+    \settoheight{\maxheight}{#1#2}
+    \settoheight{\divisorheight}{#2}
+    \begin{tikzpicture} [baseline=.5pt]
+        \node at (-.5*\divisorlength-1pt,.5*\divisorheight) {#2};
+        \node at (.5*\dividendlength+5pt,.5*\dividendheight) {#1};
+        \draw [thick]  (0pt,-.22*\dividendheight) arc (-70:60:\maxheight*.41 and \maxheight*.82) -- ++(\dividendlength+7pt,0pt);
+    \end{tikzpicture}
+}
+\newlength{\dividendlength}
+\newlength{\divisorlength}
+\newlength{\dividendheight}
+\newlength{\divisorheight}
+\newlength{\maxheight} % end of arguments for long division
+
+
+%command for term
+\newcommand{\term}[1]{#1\textsuperscript{%
+    \ifthenelse{#1=1}{st}{%
+        \ifthenelse{#1=2}{nd}{%
+           \ifthenelse{#1=3}{rd}{th}}}}}%
+
+\newcommand\myauthor{}%author
+
+
+\newcommand\name{@Name}%author
+
+\newcommand\mycoauthor{}%coauthor
+\newcommand\myinstitute{Salva Vita}%school
+\newcommand\mydepartment{Test Results}%the department
+\newcommand\thisterm{}%term
+\newcommand\thisevaluation{Chair-Lamp}%name of the evaluation
+\newcommand\thisgrade{9}%grade level
+\newcommand\copies{120}%number of copies
+\usepackage{CodeToGiveApp/latex/CNYExamStyle}
+
+\begin{document}
+%first page
+\thispagestyle{firststyle}
+\insertidentifiers
+%ide lehet irni
+
+
+\begin{tabular}{lllll}
+\cline{1-3}
+\multicolumn{1}{|l|}{} & \multicolumn{1}{l|}{number of pictures revised} & \multicolumn{1}{l|}{number of errors} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{1st minute} & \multicolumn{1}{l|}{revised_minutes@1} & \multicolumn{1}{l|}{errors_minutes@1} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{2nd minute} & \multicolumn{1}{l|}{revised_minutes@2} & \multicolumn{1}{l|}{errors_minutes@2} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{3rd minute} & \multicolumn{1}{l|}{revised_minutes@3} & \multicolumn{1}{l|}{errors_minutes@3} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{4rd minute} & \multicolumn{1}{l|}{revised_minutes@4} & \multicolumn{1}{l|}{errors_minutes@4} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{5rd minute} & \multicolumn{1}{l|}{revised_minutes@5} & \multicolumn{1}{l|}{errors_minutes@5} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{TOTAL} & \multicolumn{1}{l|}{revised_minutes@total} & \multicolumn{1}{l|}{errors_minutes@total} &  &  \\ \cline{1-3}
+                       &                       &                       &  & 
+\end{tabular}
+
+
+
+\begin{tabular}{lllll}
+\cline{1-2}
+\multicolumn{1}{|l|}{Name} & \multicolumn{1}{l|}{Value} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{quality of attention}  & \multicolumn{1}{l|}{quality_of_attention_total0} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{extent of attention}  & \multicolumn{1}{l|}{extent_of_attention0} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{performance}  & \multicolumn{1}{l|}{performance0} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{category}  & \multicolumn{1}{l|}{ category0} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{fluctuating attention}  & \multicolumn{1}{l|}{ fluctuating_attention0} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{desire to conform}  & \multicolumn{1}{l|}{desire_to_conform0} &  &  \\ \cline{1-2}
+\multicolumn{1}{|l|}{fatigue}  & \multicolumn{1}{l|}{fatigue0} &  &  \\ \cline{1-2}
+
+                       &                       &                       &  & 
+\end{tabular}
+
+\section*{Filled test}
+
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale=0.3]{CodeToGiveApp/data/temp/kitoltott.png}
+\end{figure}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel=$Time$,
+    ylabel=$Quality of Attention$,
+    xmin=0, xmax=5,
+    ymin=0, ymax=100,
+    xtick={1,2,3,4,5},
+    ytick={0,10,...,100}
+            ]
+\addplot[smooth,mark=*,blue] plot coordinates {
+    coords
+};
+\addlegendentry{Attention}
+
+\end{axis}
+    \end{tikzpicture} 
+
+\end{document}
