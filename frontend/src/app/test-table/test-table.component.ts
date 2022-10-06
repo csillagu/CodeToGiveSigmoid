@@ -26,7 +26,7 @@ export class TestTableComponent implements OnDestroy, OnInit {
   test_running = false
   timerDisplay = ""
   time = 0
-  cooldowntime =50
+  cooldowntime =1950
 
   timer: Subscription | undefined
   http_sub: Array<Subscription> = []
