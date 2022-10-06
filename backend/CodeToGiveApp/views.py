@@ -205,7 +205,7 @@ class ChairLampEndpoint(APIView, IncrementalMatrixTest):
         chair_lamp_record.correct_indices = None
         chair_lamp_record.save()
 
-        PDFEmailService().send_chairlamp_results(chair_lamp_record, body['image'])
+        PDFEmailService().send_detailed_results(chair_lamp_record, body['image'])
 
         return Response(status=204)
 
@@ -254,7 +254,7 @@ class ToulousePieronEndpoint(APIView, IncrementalMatrixTest):
         pieron_record.results = {"accuracy": (revised - errors) / revised * 100, "finished": body['finished']}
         pieron_record.correct_indices = None
         pieron_record.save()
-        PDFEmailService().send_chairlamp_results(pieron_record, body['image'])
+        PDFEmailService().send_detailed_results(pieron_record, body['image'])
 
         return Response(status=204)
 
@@ -311,5 +311,5 @@ class BourdonEndpoint(APIView, IncrementalMatrixTest):
         burdon_record.results = metrics
         burdon_record.correct_indices = None
         burdon_record.save()
-        PDFEmailService().send_chairlamp_results(burdon_record, body['image'])
+        PDFEmailService().send_detailed_results(burdon_record, body['image'])
         return Response(status=204)

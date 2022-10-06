@@ -14,14 +14,13 @@
     <h1 class="title m-auto p-2 center">{{title}}</h1>
 
     <div style="float:right;width:100%">
-      <select class="form-select d-flex" style="width: 110px;float:right" data-width="fit">
+            <select class="form-select d-flex" style="width: 110px;float:right" data-width="fit">
         <option data-content='<span class="flag-icon flag-icon-us"></span> English'>English</option>
         <option data-content='<span class="flag-icon flag-icon-mx"></span> Español'>Hungary</option>
       </select>
 
       <div class="d-flex" style="width: 110px;float:right">
       </div>
-
       <contrast-switch></contrast-switch>
     </div>
 
@@ -38,17 +37,17 @@
   </div>
 
   <div class="container" *ngIf=!test_started>
-    <div class="card  m-auto mt-5 p-3" style="max-width: 800px;">
+    <div class="card  m-auto mt-5 p-3" style="max-width: 800px;" [class]="contrastMode.contrastOn?'contrast':''">
       <div class="row g-0">
         <div class="col-md-4 d-flex align-items-center justify-content-center">
-          <img src="/assets/img/logo.png" width="80%" alt="Italian Trulli">
+          <img src="/assets/img/logo.png" width="80%" alt="Salva Vita logo" i18n-alt>
         </div>
 
         <div class="col-md-8">
           <div class="card-body">
             <ol class="list-group list-group-flush list-group-numbered">
               <!-- CHAIRLAMP -->
-              <li class="list-group-item" *ngIf="service.endpoint =='chairlamp'">
+              <li class="list-group-item" *ngIf="service.endpoint =='chairlamp'" [class]="contrastMode.contrastOn?'contrast':''" i18n>
                 You will see pictures of different kinds of objects in a matrix.
                 Your task is to find and <b>mark only the chair and lamps:</b>
                 <br/>
@@ -58,7 +57,7 @@
                      style="width: 50px;height: 50px">
               </li>
               <!-- TOULOUSEPIERON -->
-              <li class="list-group-item" *ngIf="service.endpoint =='toulousepieron'">
+              <li class="list-group-item" *ngIf="service.endpoint =='toulousepieron'" [class]="contrastMode.contrastOn?'contrast':''" i18n>
                 You will see pictures of different shapes in a matrix. Your task is to find and mark only the ones
                 listed
                 here:<br/>
@@ -68,24 +67,33 @@
                 <img src="./assets/tests/toulousepieron/symbols/6.png" alt="fourth target" i18n-alt>
               </li>
               <!-- BOURDON -->
-              <li class="list-group-item" *ngIf="service.endpoint =='bourdon'">
+              <li class="list-group-item" *ngIf="service.endpoint =='bourdon'" [class]="contrastMode.contrastOn?'contrast':''" i18n>
                 You will see pictures of letters in a matrix.
                 Your task is to find and mark only the letters that are the
                 same as
                 the highlighted firsts in the respective rows.
               </li>
-              <li class="list-group-item">
+              <li class="list-group-item" [class]="contrastMode.contrastOn?'contrast':''" i18n>
                 You will have <b>5 minutes</b> to complete this test but we record your progess every minute.
               </li>
-              <li class="list-group-item">Once you are finished click the button on the bottom to submit your results.
+              <li class="list-group-item" [class]="contrastMode.contrastOn?'contrast':''" i18n>
+                Once you are finished click the button on the bottom to submit your results.
+              <li class="list-group-item" [class]="contrastMode.contrastOn?'contrast':''" i18n>
+                Our website supports
+              <i><a href="https://chrome.google.com/webstore/detail/screen-reader/kgejglhpjiefppelpmljglcjbhoiplfn?hl=en">magnifier</a></i>
+              and
+              <i><a href="https://chrome.google.com/webstore/detail/magnifying-glass-hover-zo/gfcbebjdigncefnokoncehghgfndjcgn?hl=en">text reader</a></i>
+              extensions for browsers for better accessibility.
+              </li >
+              <li class="list-group-item" [class]="contrastMode.contrastOn?'contrast':''" i18n>
+                Press the start button to begin your test. Good luck!
               </li>
-              <li class="list-group-item">Press the start button to begin your test. Good luck!</li>
             </ol>
           </div>
         </div>
       </div>
       <div class="mt-2 col d-flex align-items-center justify-content-center">
-        <button (click)="start_test()" type="button" class="btn btn-primary m-2 btn-large">Start</button>
+        <button (click)="start_test()" type="button" class="btn btn-primary m-2 btn-large" i18n>Start</button>
       </div>
     </div>
   </div>

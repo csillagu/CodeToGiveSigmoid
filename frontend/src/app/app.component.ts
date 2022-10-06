@@ -40,10 +40,11 @@ export class AppComponent {
     }
   }
 
-  changeLang(lang: string) {
+  changeLang(lang : string) {
    localStorage.setItem('Language', lang);
    location.reload();
-}
+  }
+
 
   start_test() {
     const element = document.getElementById("changeLangDiv")

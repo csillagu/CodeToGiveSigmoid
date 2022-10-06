@@ -8,8 +8,9 @@ import threading
 import time
 from copy import copy
 from io import BytesIO
+from typing import Union
 
-from .models import ChairLamp, User
+from .models import ChairLamp, User, ToulousePieron, Bourdon
 
 from PIL import Image
 
@@ -84,52 +85,66 @@ class PDFEmailService:
         # os.unlink('cover.tex')
         # os.unlink('cover.log')
 
-    def send_chairlamp_results(self, chairlamp_record: ChairLamp, image_bytes: str):
+    def send_detailed_results(self, db_record: Union[ChairLamp, ToulousePieron, Bourdon], image_bytes: str):
 
-        image = image_bytes.split(',')[1]
+        template_map = {
+            ChairLamp : 'CodeToGiveApp/latex/chairlamp2.tex',
+            ToulousePieron : 'CodeToGiveApp/latex/toulouse.tex',
+            Bourdon : 'CodeToGiveApp/latex/bourdon.tex',
+        }
 
-        data = base64.b64decode(image)
-        im = Image.open(BytesIO(data), formats=['jpeg'])
+        try:
+            image = image_bytes.split(',')[1]
 
-        im.save('CodeToGiveApp/data/temp/kitoltott.png')
+            data = base64.b64decode(image)
+            im = Image.open(BytesIO(data), formats=['jpeg'])
 
-        latex_template_name = 'CodeToGiveApp/latex/chairlamp2.tex'
+            im.save('CodeToGiveApp/data/temp/kitoltott.png')
 
-        with open(latex_template_name) as f:
-            content = f.read()
+            latex_template_name = template_map[type(db_record)]
 
-        for metric in (
-                'quality_of_attention_total', 'quality_of_attention_minutes', 'extent_of_attention', 'performance',
-                'category',
-                'fluctuating_attention', 'desire_to_conform', 'fatigue'):
-            name = metric.replace(' ', '_')
-            name = name + '0'
-            content = content.replace(name, str(chairlamp_record.results[metric]))
+            with open(latex_template_name) as f:
+                content = f.read()
 
-        errors = chairlamp_record.results['errors_minutes']
-        revised = chairlamp_record.results['revised_minutes']
-        sum_err = sum(errors)
-        sum_rev = sum(errors)
-        while (len(errors) <= 5):
-            errors.append('-')
-            revised.append('-')
+            content = content.replace('@res',str(db_record.results.get('accuracy')))
 
-        for idx, value in enumerate(errors):
-            content = content.replace(f'errors_minutes@{idx}', str(value))
+            for metric in (
+                    'quality_of_attention_total', 'quality_of_attention_minutes', 'extent_of_attention', 'performance',
+                    'category',
+                    'fluctuating_attention', 'desire_to_conform', 'fatigue'):
+                name = metric.replace(' ', '_')
+                name = name + '0'
+                content = content.replace(name, str(db_record.results.get(metric, '-')))
 
-        for idx, value in enumerate(revised):
-            content = content.replace(f'revised_minutes@{idx}', str(value))
+            errors = db_record.results.get('errors_minutes', '-')
+            revised = db_record.results.get('revised_minutes', '-')
+            sum_err = sum(errors)
+            sum_rev = sum(revised)
+            while (len(errors) <= 5):
+                errors.append('-')
+                revised.append('-')
 
-        content = content.replace('errors_minutes@total',str(sum_err))
-        content = content.replace('revised_minutes@total',str(sum_rev))
-        username=User.objects.get(user_hash=chairlamp_record.user_hash).user_name
+            for idx, value in enumerate(errors):
+                content = content.replace(f'errors_minutes@{idx+1}', str(value))
+
+            for idx, value in enumerate(revised):
+                content = content.replace(f'revised_minutes@{idx+1}', str(value))
+
+            content = content.replace('errors_minutes@total',str(sum_err))
+            content = content.replace('revised_minutes@total',str(sum_rev))
+
+            coords = ""
+            if 'quality_of_attention_minutes' in db_record.results:
+                for idx, att in enumerate(db_record.results['quality_of_attention_minutes']):
+                    coords = coords + f'({idx + 1}, {att}) '
+                content = content.replace('coords', coords)
+
+        except (KeyError , TypeError):
+            print('some attributes were not found during parsing')
+
+        username=User.objects.get(user_hash=db_record.user_hash).user_name
         content=content.replace("@Name", username)
         content=content.replace("@Email", "example-mail@ex.com")
-        coords = ""
-        for idx, att in enumerate(chairlamp_record.results['quality_of_attention_minutes']):
-            coords = coords + f'({idx + 1}, {att}) '
-        content = content.replace('coords', coords)
-
-        x = threading.Thread(target=self.generate_latex, args=(content,chairlamp_record.user_hash,username )).start()
+        x = threading.Thread(target=self.generate_latex, args=(content, db_record.user_hash, username)).start()
         return
 

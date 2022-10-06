@@ -1,4 +1,4 @@
-<div>
+<div style="border:1px solid black; padding: 5px; border-radius: 5px;">
 
   <div class="left_menu_li" *ngIf="menuservice.timeRunning" i18n><b>Time:</b>{{menuservice.timeDisplay}}</div>
   <div class="left_menu_li" *ngIf="menuservice.endpoint == 'chairlamp'" i18n>
@@ -15,11 +15,11 @@
     <img [class]="contrastMode.contrastOn?'contrast':''" src="./assets/tests/toulousepieron/symbols/5.png" alt="third target" i18n-alt>
     <img [class]="contrastMode.contrastOn?'contrast':''" src="./assets/tests/toulousepieron/symbols/6.png" alt="fourth target" i18n-alt>
   </div>
-  <div class="left_menu_li" *ngIf="menuservice.endpoint == 'chairlamp'" i18n>
+  <div class="left_menu_li" *ngIf="menuservice.endpoint == 'bourdon'" i18n>
     <b>Task:</b><br/>
     Mark the letters that are the same as the highlighted firsts in the respective rows<br/>
   </div>
-  <div class="left_menu_li">
+  <div class="left_menu_li" i18n>
     <b>Keyboard Help:</b><br/>
     Use the arrows to navigate the grid<br>
     Press Space to mark the picture

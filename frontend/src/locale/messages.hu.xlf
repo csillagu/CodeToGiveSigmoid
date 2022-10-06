@@ -2,81 +2,180 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="187187500641108332" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{title}}"/></source>
+      <trans-unit id="1745402987793763606" datatype="html">
+        <source>Salva Vita logo</source>
+        <target>Salva Vita logó</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5199621926973415649" datatype="html">
+        <source> You will see pictures of different kinds of objects in a matrix. Your task is to find and <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>mark only the chair and lamps:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/><x id="TAG_IMG" ctype="image" equiv-text="&lt;img src=&quot;./assets/tests/chairlamp/symbols/0.svg&quot; alt=&quot;first target&quot; i18n-alt
+                     style=&quot;width: 50px;height: 50px&quot;&gt;"/><x id="TAG_IMG_1" ctype="x-img_1" equiv-text="&lt;img src=&quot;./assets/tests/chairlamp/symbols/1.svg&quot; alt=&quot;second target&quot; i18n-alt
+                     style=&quot;width: 50px;height: 50px&quot;&gt;"/></source>
+
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">51,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5075848369117830512" datatype="html">
+        <source>first target</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8289626392510234674" datatype="html">
+        <source>second target</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9099744393311106892" datatype="html">
-        <source>Contrast</source>
+      <trans-unit id="5859558755902102995" datatype="html">
+        <source> You will see pictures of different shapes in a matrix. Your task is to find and mark only the ones listed here:<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/><x id="TAG_IMG" ctype="image" equiv-text="&lt;img src=&quot;./assets/tests/toulousepieron/symbols/1.png&quot; alt=&quot;first target&quot; i18n-alt&gt;"/><x id="TAG_IMG_1" ctype="x-img_1" equiv-text="&lt;img src=&quot;./assets/tests/toulousepieron/symbols/4.png&quot; alt=&quot;second target&quot; i18n-alt&gt;"/><x id="TAG_IMG_2" ctype="x-img_2" equiv-text="&lt;img src=&quot;./assets/tests/toulousepieron/symbols/5.png&quot; alt=&quot;third target&quot; i18n-alt&gt;"/><x id="TAG_IMG_3" ctype="x-img_3" equiv-text="&lt;img src=&quot;./assets/tests/toulousepieron/symbols/6.png&quot; alt=&quot;fourth target&quot; i18n-alt&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">61,68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="554412917694154599" datatype="html">
-        <source>hungarian</source>
+      <trans-unit id="2109537467884209839" datatype="html">
+        <source>third target</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6105581491285311381" datatype="html">
-        <source>english</source>
+      <trans-unit id="8754733856692828426" datatype="html">
+        <source>fourth target</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3318032029353283265" datatype="html">
-        <source> The dog or domestic dog (Canis familiaris[4][5] or Canis lupus familiaris[5]) is a domesticated descendant of the wolf. The dog is derived from an ancient, extinct wolf,[6][7] and the modern wolf is the dog&apos;s nearest living relative.[8] The dog was the first species to be domesticated,[9][8] by hunter-gatherers over 15,000 years ago,[7] before the development of agriculture.[1] Due to their long association with humans, dogs have expanded to a large number of domestic individuals[10] and gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.[11] </source>
+      <trans-unit id="140735225255482823" datatype="html">
+        <source> You will see pictures of letters in a matrix. Your task is to find and mark only the letters that are the same as the highlighted firsts in the respective rows. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">42,44</context>
+          <context context-type="linenumber">71,76</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3823286352887223769" datatype="html">
-        <source> The dog has been selectively bred over millennia for various behaviors, sensory capabilities, and physical attributes.[12] Dog breeds vary widely in shape, size, and color. They perform many roles for humans, such as hunting, herding, pulling loads, protection, assisting police and the military, companionship, therapy, and aiding disabled people. Over the millennia, dogs became uniquely adapted to human behavior, and the human-canine bond has been a topic of frequent study.[13] This influence on human society has given them the sobriquet of &quot;man&apos;s best friend&quot;.[14] </source>
+      <trans-unit id="8340124169641700479" datatype="html">
+        <source> You will have <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>5 minutes<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> to complete this test but we record your progess every minute. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">45,47</context>
+          <context context-type="linenumber">77,79</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4381688060667811910" datatype="html">
-        <source>this slowpoke moves</source>
+      <trans-unit id="5913360634666933902" datatype="html">
+        <source> Once you are finished click the button on the bottom to submit your results. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">80,82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7236539713580272243" datatype="html">
+        <source> Press the start button to begin your test. Good luck! </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">83,85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5162686434580248853" datatype="html">
         <source>Start</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6224850716272100575" datatype="html">
         <source>Thank you for filling our test</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="136841744764392562" datatype="html">
         <source>We will contact you with the results shortly!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8312552853222866536" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>by Salva Vita<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5265084070101908544" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Time:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/><x id="INTERPOLATION" equiv-text="{{menuservice.timeDisplay}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4455562871991560359" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Task:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/> Mark the chairs and lamps:<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/><x id="TAG_IMG" ctype="image" equiv-text="&lt;img [class]=&quot;contrastMode.contrastOn?&apos;contrast&apos;:&apos;&apos;&quot; src=&quot;./assets/tests/chairlamp/symbols/0.svg&quot; alt=&quot;first target&quot; i18n-alt style=&quot;width: 50px;height: 50px&quot;&gt;"/><x id="TAG_IMG_1" ctype="x-img_1" equiv-text="&lt;img [class]=&quot;contrastMode.contrastOn?&apos;contrast&apos;:&apos;&apos;&quot; src=&quot;./assets/tests/chairlamp/symbols/1.svg&quot; alt=&quot;second target&quot; i18n-alt style=&quot;width: 50px;height: 50px&quot;&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">5,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6205713415093509059" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Task:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/> Mark the following shapes:<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/><x id="TAG_IMG" ctype="image" equiv-text="&lt;img [class]=&quot;contrastMode.contrastOn?&apos;contrast&apos;:&apos;&apos;&quot; src=&quot;./assets/tests/toulousepieron/symbols/1.png&quot; alt=&quot;first target&quot; i18n-alt&gt;"/><x id="TAG_IMG_1" ctype="x-img_1" equiv-text="&lt;img [class]=&quot;contrastMode.contrastOn?&apos;contrast&apos;:&apos;&apos;&quot; src=&quot;./assets/tests/toulousepieron/symbols/4.png&quot; alt=&quot;second target&quot; i18n-alt&gt;"/><x id="TAG_IMG_2" ctype="x-img_2" equiv-text="&lt;img [class]=&quot;contrastMode.contrastOn?&apos;contrast&apos;:&apos;&apos;&quot; src=&quot;./assets/tests/toulousepieron/symbols/5.png&quot; alt=&quot;third target&quot; i18n-alt&gt;"/><x id="TAG_IMG_3" ctype="x-img_3" equiv-text="&lt;img [class]=&quot;contrastMode.contrastOn?&apos;contrast&apos;:&apos;&apos;&quot; src=&quot;./assets/tests/toulousepieron/symbols/6.png&quot; alt=&quot;fourth target&quot; i18n-alt&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">11,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6236799953749032827" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Task:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/> Mark the letters that are the same as the highlighted firsts in the respective rows<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7239382917811061538" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Keyboard Help:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br&gt;"/> Use the arrows to navigate the grid<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br&gt;"/> Press Space to mark the picture </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/left-menu/left-menu.component.html</context>
+          <context context-type="linenumber">23,26</context>
         </context-group>
       </trans-unit>
     </body>
